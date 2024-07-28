@@ -52,10 +52,10 @@ export default function Login({
   };
 
   return (
-    <div className="flex-1 flex flex-col w-full px-8 sm:max-w-md justify-center gap-2">
+    <div className=" flex flex-col w-full px-8 sm:max-w-md justify-center mx-auto mt-32 gap-2">
       <Link
         href="/"
-        className="absolute left-8 top-8 py-2 px-4 rounded-md no-underline text-foreground bg-btn-background hover:bg-btn-background-hover flex items-center group text-sm"
+        className="absolute left-8 top-20 py-2 px-4 rounded-md no-underline text-foreground bg-btn-background hover:bg-btn-background-hover flex items-center group text-sm"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -74,8 +74,8 @@ export default function Login({
         Back
       </Link>
 
-      <form className="flex-1 flex flex-col w-full justify-center gap-2 text-foreground">
-        <label className="text-md" htmlFor="email">
+      <form className="flex flex-col w-full justify-center gap-2 text-foreground">
+        <label className="text-md text-black font-bold" htmlFor="email">
           Email
         </label>
         <input
@@ -84,7 +84,7 @@ export default function Login({
           placeholder="you@example.com"
           required
         />
-        <label className="text-md" htmlFor="password">
+        <label className="text-md text-black font-bold" htmlFor="password">
           Password
         </label>
         <input
@@ -103,7 +103,7 @@ export default function Login({
         </SubmitButton>
         <SubmitButton
           formAction={signUp}
-          className="border border-foreground/20 rounded-md px-4 py-2 text-foreground mb-2"
+          className="border border-black rounded-md px-4 py-2 text-black mb-2"
           pendingText="Signing Up..."
         >
           Sign Up
