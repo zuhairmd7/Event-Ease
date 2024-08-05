@@ -7,9 +7,10 @@ import AuthButton from './AuthButton';
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 
-export function NavBar() {
+export async function NavBar() {
 
     return (
+        
         <Disclosure as="nav" className="bg-gray-300 shadow">
             <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
                 <div className="relative flex h-16 justify-between">

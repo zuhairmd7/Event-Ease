@@ -1,12 +1,13 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { supabase } from '@/utils/supabase/client';
+import  supabase  from '@/utils/supabase/client';
 import Link from 'next/link';
 import { MagnifyingGlassIcon, ExclamationTriangleIcon, CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
 import { Listbox } from '@headlessui/react';
 
 async function fetchEventss(searchQuery = '') {
+    console.log("fecthing events");
     const currentDate = new Date().toISOString();
 
     const { data, error } = await supabase
@@ -15,6 +16,9 @@ async function fetchEventss(searchQuery = '') {
         .gt('start_time', currentDate)
         .ilike('title', `%${searchQuery}%`); // Use ilike for case-insensitive matching
 
+    
+    console.log(data);
+
     if (error) {
         console.error('Error fetching events:', error);
         return [];
@@ -22,7 +26,7 @@ async function fetchEventss(searchQuery = '') {
     return data;
 }
 
-export default function SearchEvents() {
+export default function SearchEvents( { label = 'Upcoming Events' }) {
     const [events, setEvents] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
 
@@ -33,27 +37,27 @@ export default function SearchEvents() {
         };
 
         fetchData();
-    }, [searchQuery]); // Fetch events when searchQuery changes
+    }, []); // Fetch events when searchQuery changes
 
     const handleSearchChange = (event) => {
         setSearchQuery(event.target.value);
     };
-
+    
     return (
-        <div className="px-4 sm:px-6 lg:px-8 w-2/3 mx-auto mt-32">
+        <div className="px-4 sm:px-6 lg:px-8 w-2/3 mx-auto mt-28">
             <div className="sm:flex sm:items-center">
                 <div className="sm:flex-auto">
-                    <h1 className="font-bold text-2xl leading-6 text-purple-950">Upcoming Events</h1>
+                    <h1 className="font-bold text-2xl leading-6 text-purple-950">{label}</h1>
                     <p className="mt-2 text-sm text-gray-700">
                         A list of all the events in your account including their title, status and price.
                     </p>
                 </div>
 
-                <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+                {/* <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
                     <button type="button" className="block rounded-md bg-purple-950 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-purple-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                         Add Event
                     </button>
-                </div>
+                </div> */}
             </div>
 
             <div className="mt-8 flex items-center space-x-4">
@@ -119,12 +123,12 @@ export default function SearchEvents() {
                         <div className="mt-20 border-l-4 border-purple-900 bg-purple-50 p-4">
                             <div className="flex">
                                 <div className="flex-shrink-0">
-                                    <ExclamationTriangleIcon aria-hidden="true" className="h-5 w-5 text-purple-600" />
+                                    <ExclamationTriangleIcon aria-hidden="true" className="h-5 w-5 text-yellow-300" />
                                 </div>
                                 <div className="ml-3">
                                     <p className="text-sm text-purple-700">
                                         There's no events existed.{' '}
-                                        <a href="/app/protected" className="font-medium text-purple-700 underline hover:text-purple-600">
+                                        <a href="/protected" className="font-medium text-purple-700 underline hover:text-purple-600">
                                             Please add/create new event to show here.
                                         </a>
                                     </p>

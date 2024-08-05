@@ -9,7 +9,7 @@ export default async function AuthButton() {
 
   const signOut = async () => {
     "use server";
-
+  console.log("TESTT!!!!");
     const supabase = createClient();
     await supabase.auth.signOut();
     return redirect("/login");
