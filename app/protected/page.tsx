@@ -1,10 +1,5 @@
-import DeployButton from "@/components/DeployButton";
-import AuthButton from "@/components/AuthButton";
 import { createClient } from "@/utils/supabase/server";
-import FetchDataSteps from "@/components/tutorial/FetchDataSteps";
-import Header from "@/components/Header";
 import { redirect } from "next/navigation";
-import { AuthClient, isAuthApiError } from "@supabase/supabase-js";
 
 export default async function ProtectedPage() {
   const supabase = createClient();
@@ -24,12 +19,26 @@ export default async function ProtectedPage() {
           Hello,This is a protected page that you can only see as an authenticated
           user
         </div>
-        <div className="min-h-screen flex flex-col items-center justify-center py-2">
-                <h1 className="text-4xl font-bold">Welcom to,Admin Panel !</h1>
+      </div>
+        <div className=" flex flex-col items-center justify-center py-2">
+                <h1 className="text-4xl font-bold">Welcom to,<span className="text-purple-950">Admin</span> Panel !</h1>
                 <p>Admin panel content will be shown here.</p>
             </div>
-      </div>
-    </div>
+      <div className="grid grid-cols-4 gap-4 p-4">
+    <button className="bg-purple-900 text-white py-2 px-4 rounded-md hover:bg-purple-800">
+        Create
+    </button>
+    <button className="bg-purple-900 text-white py-2 px-4 rounded-md hover:bg-purple-800">
+        update
+    </button>
+    <button className="bg-purple-900 text-white py-2 px-4 rounded-md hover:bg-purple-800">
+        delete
+    </button>
+    <button className="bg-purple-900 text-white py-2 px-4 rounded-md hover:bg-purple-800">
+        View
+    </button>
+</div>
 
+    </div>
   );
 }
