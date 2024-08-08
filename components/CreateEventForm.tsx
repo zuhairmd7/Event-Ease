@@ -1,8 +1,5 @@
-'use client';
-
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import supabase from '@/utils/supabase/client';
-
 
 const CreateEventForm = ({ onClose }) => {
     const [title, setTitle] = useState('');
@@ -12,24 +9,56 @@ const CreateEventForm = ({ onClose }) => {
     const [endTime, setEndTime] = useState('');
     const [price, setPrice] = useState('');
     const [loading, setLoading] = useState(false);
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            const { data, error } = await supabase.auth.getUser();
+            if (error) {
+                console.error("Error fetching user:", error);
+                alert("Error fetching user");
+            } else {
+                setUser(data.user);
+            }
+        };
+
+        fetchUser();
+    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setLoading(true);
+        
+        if (!user) {
+            return alert("You must be logged in to create an event.");
+        }
 
 
         const { error } = await supabase.from('events').insert([
-            { title, description, location, start_time: startTime, end_time: endTime, price }
+            {
+                title,
+                description,
+                location,
+                start_time: startTime,
+                end_time: endTime,
+                price,
+                organizer_id: user.id
+            }
         ]);
 
         if (error) {
-            console.error('Error creating event:', error);
+            console.error("Error creating event:", error);
+            alert("Error creating event");
         } else {
+            alert("Event created successfully!");
             onClose(); // Close the form on successful submission
         }
 
         setLoading(false);
     };
+
+    if (!user) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
@@ -53,7 +82,7 @@ const CreateEventForm = ({ onClose }) => {
                             onChange={(e) => setDescription(e.target.value)}
                             className="w-full p-2 border border-gray-300 rounded mt-1"
                             required>
-                            </textarea>
+                        </textarea>
                     </div>
                     <div className="mb-4">
                         <label className="block text-gray-700">Location</label>

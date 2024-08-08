@@ -1,7 +1,6 @@
+//path: components\NavBar.tsx
 import Link from 'next/link';
 import React from 'react'
-/* import { useRouter } from 'next/navigation';
-import { useRouter } from 'next/router';*/
 import EventLogo from './EventLogo';
 import AuthButton from './AuthButton';
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
@@ -50,7 +49,6 @@ export async function NavBar() {
                             <span className="sr-only">View notifications</span>
                             <BellIcon aria-hidden="true" className="h-6 w-6" />
                         </button>
-
                         {/* Profile dropdown */}
                         <Menu as="div" className="relative ml-3">
                             <div>
@@ -77,20 +75,15 @@ export async function NavBar() {
                                         Settings
                                     </Link>
                                 </MenuItem>
-                                <MenuItem>
-                                    <Link href="#" className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">
-                                        <AuthButton />
-                                    </Link>
-                                </MenuItem>
                             </MenuItems>
                         </Menu>
+                        <AuthButton />
+
                     </div>
                 </div>
             </div>
-
             <DisclosurePanel className="sm:hidden">
                 <div className="space-y-1 pb-4 pt-2">
-                    {/* Current: "bg-indigo-50 border-indigo-500 text-indigo-700", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" */}
                     <DisclosureButton
                         as="a"
                         href="/"

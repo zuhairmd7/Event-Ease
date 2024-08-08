@@ -45,7 +45,7 @@ export default function Login({
     });
 
     if (error) {
-      return redirect("/login?message=Could not authenticate user");
+      return redirect("/login?message=Could not authenticate user!");
     }
 
     return redirect("/login?message=Check email to continue sign in process");
@@ -79,7 +79,7 @@ export default function Login({
           Email
         </label>
         <input
-          className="rounded-md px-4 py-2 bg-inherit border mb-6"
+          className="rounded-md px-4 py-2 bg-inherit text-black border border-gray-500 mb-6"
           name="email"
           placeholder="you@example.com"
           required
@@ -88,7 +88,7 @@ export default function Login({
           Password
         </label>
         <input
-          className="rounded-md px-4 py-2 bg-inherit border mb-6"
+          className="rounded-md px-4 py-2 text-black bg-inherit border mb-6"
           type="password"
           name="password"
           placeholder="••••••••"
@@ -109,7 +109,7 @@ export default function Login({
           Sign Up
         </SubmitButton>
         {searchParams?.message && (
-          <p className="mt-4 p-4 bg-foreground/10 text-foreground text-center">
+          <p className="mt-4 p-4 bg-purple-800 text-white text-center">
             {searchParams.message}
           </p>
         )}

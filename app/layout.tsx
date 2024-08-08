@@ -1,6 +1,7 @@
 import "./globals.css";
 import { ReactNode } from 'react';
 import NavBar from "@/components/NavBar";
+import AuthButton from "@/components/AuthButton";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
