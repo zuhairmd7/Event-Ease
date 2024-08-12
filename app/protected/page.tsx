@@ -33,15 +33,17 @@ export default async function AdminPanel() {
         </div>
       </div>
       <div className="flex flex-col items-center justify-center py-1 border-b-2 border-dashed border-violet-800">
-        <h1 className="text-4xl font-bold ">Welcome to, <span className="text-purple-950">Admin</span> Panel!</h1>
+        <h1 className="text-2xl md:text-4xl font-bold ">Welcome to, <span className="text-purple-950">Admin</span> Panel!</h1>
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-1 w-full px-6">
+      <div className="sm:flex sm:flex-row flex-col gap-1 w-full px-6">
         {/* Event Form Component */}
         <div className="bg-white p-6 rounded-md">
           <EventForm />
         </div>
         {/* Event List Component */}
-        <EventList events={events} />
+        <div className="bg-white p-6 rounded-md">
+          <EventList events={events} />
+        </div>
       </div>
     </div>
   );

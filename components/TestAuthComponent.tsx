@@ -1,12 +1,13 @@
 // components/TestAuthComponent.js
 "use client"
 import { useEffect, useState } from 'react';
-import supabase from '@/utils/supabase/client';
+import { createClient } from '@/utils/supabase/client';
 
 const TestAuthComponent = () => {
     const [user, setUser] = useState(null);
     const [error, setError] = useState(null);
-
+    const supabase = createClient();
+    
     useEffect(() => {
         const fetchUser = async () => {
             try {

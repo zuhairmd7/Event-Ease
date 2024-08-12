@@ -1,6 +1,4 @@
-import { createClient } from '@/utils/supabase/server';
-import { MagnifyingGlassIcon } from '@heroicons/react/20/solid'
-import Link from 'next/link';
+
 import TestAuthComponent from '@/components/TestAuthComponent';
 
 /* async function fetchEvents() {

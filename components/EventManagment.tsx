@@ -1,4 +1,4 @@
-'use client';
+/* 'use client';
 
 import React, { useState } from 'react';
 import CreateEventForm from './CreateEventForm';
@@ -23,3 +23,4 @@ const EventManager = () => {
 };
 
 export default EventManager;
+ */

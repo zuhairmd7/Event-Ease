@@ -4,7 +4,7 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { ExclamationTriangleIcon, EllipsisVerticalIcon } from "@heroicons/react/20/solid";
 import { useState } from 'react';
-import supabase from '@/utils/supabase/client';
+import { createClient } from '@/utils/supabase/client';
 
 type Event = {
     id: number;
@@ -24,33 +24,64 @@ type EventListProps = {
 };
 
 const deleteEvent = async (eventId: number) => {
-    const { error } = await supabase
-        .from('events')
-        .delete()
-        .eq('id', eventId);
+    const supabase = createClient();
 
-    if (error) {
-        console.error('Error deleting event:', error);
-        return false;
-    } else {
+    try {
+        // Step 1: Fetch all registrations related to the event
+        const { data: registrations, error: fetchError } = await supabase
+            .from('registrations')
+            .select('id')
+            .eq('event_id', eventId);
+
+        if (fetchError) {
+            throw fetchError;
+        }
+
+        // Step 2: Delete all fetched registrations
+        const registrationIds = registrations.map(reg => reg.id);
+        const { error: deleteRegistrationsError } = await supabase
+            .from('registrations')
+            .delete()
+            .in('id', registrationIds);
+
+        if (deleteRegistrationsError) {
+            throw deleteRegistrationsError;
+        }
+
+        // Step 3: Delete the event
+        const { error: deleteEventError } = await supabase
+            .from('events')
+            .delete()
+            .eq('id', eventId);
+
+        if (deleteEventError) {
+            throw deleteEventError;
+        }
+
         console.log('Event deleted successfully');
         return true;
+    } catch (error) {
+        console.error('Error deleting event:', error);
+        return false;
     }
 };
 
 export default function EventList({ events }: EventListProps) {
     const [showAlert, setShowAlert] = useState(false);
+    const [eventList, setEventList] = useState(events);
+    const [editingEvent, setEditingEvent] = useState<Event | null>(null);
 
     const handleDelete = async (eventId: number) => {
         const success = await deleteEvent(eventId);
         if (success) {
+            setEventList(eventList.filter(event => event.id !== eventId));
             setShowAlert(true);
-            setTimeout(() => setShowAlert(false), 6000); // Hide the alert after 3 seconds
+            setTimeout(() => setShowAlert(false), 5000); // Hide the alert after 3 seconds
         }
     };
 
     return (
-        <div className="bg-white p-6 rounded-md -ms-36 mt-5">
+        <div className="rounded-md w-full mt-5 overflow-x-scroll md:overflow-auto">
             {showAlert && (
                 <div className="rounded-md bg-green-50 p-4 mb-4">
                     <div className="flex">
@@ -113,7 +144,7 @@ export default function EventList({ events }: EventListProps) {
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-200">
-                        {events.map((event) => (
+                        {eventList.map((event) => (
                             <tr key={event.id} className="relative hover:bg-gray-50">
                                 <td className="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-900">
                                     <a href={`/event-details/${event.id}`} className="text-indigo-600 hover:text-indigo-900">
@@ -143,23 +174,17 @@ export default function EventList({ events }: EventListProps) {
                                         >
                                             <MenuItem>
                                                 {({ active }) => (
-                                                    <a
-                                                        href={`/update-event/${event.id}`}
-                                                        className={`${
-                                                            active ? 'bg-gray-100' : ''
-                                                        } block px-4 py-2 text-sm text-gray-700`}
-                                                    >
+                                                    <button /* onClick={() => handleEdit(event)} */ className={`${active ? 'bg-gray-100' : ''} block px-4 py-2 text-sm text-gray-700`}>
                                                         Edit
-                                                    </a>
+                                                    </button>
                                                 )}
                                             </MenuItem>
                                             <MenuItem>
                                                 {({ active }) => (
                                                     <button
                                                         onClick={() => handleDelete(event.id)}
-                                                        className={`${
-                                                            active ? 'bg-gray-100' : ''
-                                                        } block w-full px-4 py-2 text-left text-sm text-gray-700`}
+                                                        className={`${active ? 'bg-gray-100' : ''
+                                                            } block w-full px-4 py-2 text-left text-sm text-gray-700`}
                                                     >
                                                         Delete
                                                     </button>

@@ -50,7 +50,7 @@ export default async function EventDetailsPage({ params }) {
                     <p className="bg-purple-100 p-3 rounded-lg shadow-md">Start Time: {new Date(event.start_time).toLocaleString()}</p>
                     <p className="bg-purple-100 p-3 rounded-lg shadow-md">End Time: {new Date(event.end_time).toLocaleString()}</p>
                 </div>
-                <RegistrationForm eventId={event.id} />
+                <RegistrationForm eventId={event.id} eventName={event.title} eventDate={new Date(event.start_time).toLocaleString()} eventLocation={event.location} />
             </div>
         </>
     );

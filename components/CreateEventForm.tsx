@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import supabase from '@/utils/supabase/client';
+/* import { useState, useEffect } from 'react';
+import { createClient } from '@/utils/supabase/client';
 
 const CreateEventForm = ({ onClose }) => {
     const [title, setTitle] = useState('');
@@ -10,6 +10,8 @@ const CreateEventForm = ({ onClose }) => {
     const [price, setPrice] = useState('');
     const [loading, setLoading] = useState(false);
     const [user, setUser] = useState(null);
+
+    const supabase = createClient();
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -27,7 +29,7 @@ const CreateEventForm = ({ onClose }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
         if (!user) {
             return alert("You must be logged in to create an event.");
         }
@@ -162,3 +164,4 @@ const CreateEventForm = ({ onClose }) => {
 };
 
 export default CreateEventForm;
+ */

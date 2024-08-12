@@ -58,15 +58,15 @@ export default async function AuthButton() {
     <div className="flex items-center gap-4">
       {/* Hey, {user.email}! */}
       <form action={signOut}>
-        <button className="ms-3 py-1 px-1 flex text-sm rounded-md bg-purple-950 hover:cursor-pointer text-white font-semibold no-underline ">
+        <button className="block px-4 py-2 text-sm hover:bg-gray-100 w-full text-red-700 data-[focus]:bg-gray-100" /* className="ms-3 py-1 px-1 flex text-sm rounded-md bg-purple-950 hover:cursor-pointer text-white font-semibold no-underline " */>
           Logout
         </button>
       </form>
     </div>
   ) : (
     <Link
-      href="/login"
-      className="ms-3 py-1 px-2 text-sm rounded-md bg-purple-950 text-white cursor-pointer font-semibold no-underline flex"
+      href="/login" className="block hover:bg-gray-100 w-full px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100"
+    /* className="ms-3 py-1 px-2 text-sm rounded-md bg-purple-950 text-white cursor-pointer font-semibold no-underline flex" */
     >
       Login
     </Link>
