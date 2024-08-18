@@ -5,6 +5,7 @@ import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { ExclamationTriangleIcon, EllipsisVerticalIcon } from "@heroicons/react/20/solid";
 import { useState } from 'react';
 import { createClient } from '@/utils/supabase/client';
+import EditEventForm from './EditEventForm';
 
 type Event = {
     id: number;
@@ -79,9 +80,12 @@ export default function EventList({ events }: EventListProps) {
             setTimeout(() => setShowAlert(false), 5000); // Hide the alert after 3 seconds
         }
     };
+    const handleEdit = (event: Event) => {
+        setEditingEvent(event);
+    };
 
     return (
-        <div className="rounded-md w-full mt-5 overflow-x-scroll md:overflow-auto">
+        <div className="rounded-md w-full mt-5 overflow-x-scroll lg:overflow-visible">
             {showAlert && (
                 <div className="rounded-md bg-green-50 p-4 mb-4">
                     <div className="flex">
@@ -110,93 +114,97 @@ export default function EventList({ events }: EventListProps) {
                     </div>
                 </div>
             )}
-
-            {events.length === 0 ? (
-                <div className="mt-4 border-l-4 border-purple-900 bg-purple-50 p-4">
-                    <div className="flex">
-                        <div className="flex-shrink-0">
-                            <ExclamationTriangleIcon aria-hidden="true" className="h-5 w-5 text-purple-500" />
-                        </div>
-                        <div className="ml-3">
-                            <p className="text-sm text-purple-700">
-                                There's no events available.{' '}
-                                <a href="/protected" className="font-medium text-purple-700 underline hover:text-purple-600">
-                                    Please add/create new event to show here.
-                                </a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
+            {editingEvent ? (
+                <EditEventForm event={editingEvent} onClose={() => setEditingEvent(null)} />
             ) : (
-                <table className="min-w-full divide-y divide-gray-300">
-                    <thead>
-                        <tr>
-                            <th scope="col" className="py-3.5 pl-4 pr-3 text-start text-sm font-semibold text-gray-900 sm:pl-0">Name</th>
-                            <th scope="col" className="px-3 py-3.5 text-start text-sm font-semibold text-gray-900">Description</th>
-                            <th scope="col" className="px-3 py-3.5 text-start text-sm font-semibold text-gray-900">Price</th>
-                            <th scope="col" className="px-3 py-3.5 text-start text-sm font-semibold text-gray-900">Status</th>
-                            <th scope="col" className="px-3 py-3.5 text-start text-sm font-semibold text-gray-900">Location</th>
-                            <th scope="col" className="px-3 py-3.5 text-start text-sm font-semibold text-gray-900">Start Time</th>
-                            <th scope="col" className="px-3 py-3.5 text-start text-sm font-semibold text-gray-900">End Time</th>
-                            <th scope="col" className="px-3 py-3.5 text-start text-sm font-semibold text-gray-900">Category</th>
-                            <th scope="col" className="pr-3 py-3.5 text-start text-sm font-semibold text-gray-900">Capacity</th>
-                            <th scope="col" className="px-3 py-3.5 text-start text-sm font-semibold text-gray-900">edit</th>
-                        </tr>
-                    </thead>
-                    <tbody className="divide-y divide-gray-200">
-                        {eventList.map((event) => (
-                            <tr key={event.id} className="relative hover:bg-gray-50">
-                                <td className="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-900">
-                                    <a href={`/event-details/${event.id}`} className="text-indigo-600 hover:text-indigo-900">
-                                        {event.title}
-                                    </a>
-                                </td>
-                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{event.description}</td>
-                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{event.price}</td>
-                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{event.status}</td>
-                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{event.location}</td>
-                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{new Date(event.start_time).toLocaleDateString()}</td>
-                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{new Date(event.end_time).toLocaleDateString()}</td>
-                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{event.category}</td>
-                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{event.capacity}</td>
-                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                    <Menu as="div" className="relative inline-block text-left">
-                                        <div>
-                                            <MenuButton className="flex items-center rounded-full  text-gray-800 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-purple-800 focus:ring-offset-2 focus:ring-offset-gray-100">
-                                                <span className="sr-only">Open options</span>
-                                                <EllipsisVerticalIcon aria-hidden="true" className="h-5 w-5" />
-                                            </MenuButton>
-                                        </div>
+                <>
+                    {events.length === 0 ? (
+                        <div className="mt-4 border-l-4 border-purple-900 bg-purple-50 p-4">
+                            <div className="flex">
+                                <div className="flex-shrink-0">
+                                    <ExclamationTriangleIcon aria-hidden="true" className="h-5 w-5 text-purple-500" />
+                                </div>
+                                <div className="ml-3">
+                                    <p className="text-sm text-purple-700">
+                                        There's no events available.{' '}
+                                        <a href="/protected" className="font-medium text-purple-700 underline hover:text-purple-600">
+                                            Please add/create new event to show here.
+                                        </a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    ) : (
 
-                                        <MenuItems
-                                            transition
-                                            className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-                                        >
-                                            <MenuItem>
-                                                {({ active }) => (
-                                                    <button /* onClick={() => handleEdit(event)} */ className={`${active ? 'bg-gray-100' : ''} block px-4 py-2 text-sm text-gray-700`}>
-                                                        Edit
-                                                    </button>
-                                                )}
-                                            </MenuItem>
-                                            <MenuItem>
-                                                {({ active }) => (
-                                                    <button
-                                                        onClick={() => handleDelete(event.id)}
-                                                        className={`${active ? 'bg-gray-100' : ''
-                                                            } block w-full px-4 py-2 text-left text-sm text-gray-700`}
-                                                    >
-                                                        Delete
-                                                    </button>
-                                                )}
-                                            </MenuItem>
-                                        </MenuItems>
-                                    </Menu>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        <table className="min-w-full divide-y divide-gray-300">
+                            <thead>
+                                <tr>
+                                    <th scope="col" className="py-3.5 pl-4 pr-3 text-start text-sm font-semibold text-gray-900 sm:pl-0">Name</th>
+                                    <th scope="col" className="px-3 py-3.5 text-start text-sm font-semibold text-gray-900">Description</th>
+                                    <th scope="col" className="px-3 py-3.5 text-start text-sm font-semibold text-gray-900">Price</th>
+                                    <th scope="col" className="px-3 py-3.5 text-start text-sm font-semibold text-gray-900">Status</th>
+                                    <th scope="col" className="px-3 py-3.5 text-start text-sm font-semibold text-gray-900">Location</th>
+                                    <th scope="col" className="px-3 py-3.5 text-start text-sm font-semibold text-gray-900">Start Time</th>
+                                    <th scope="col" className="px-3 py-3.5 text-start text-sm font-semibold text-gray-900">End Time</th>
+                                    <th scope="col" className="px-3 py-3.5 text-start text-sm font-semibold text-gray-900">Category</th>
+                                    <th scope="col" className="pr-3 py-3.5 text-start text-sm font-semibold text-gray-900">Capacity</th>
+                                    <th scope="col" className="px-3 py-3.5 text-start text-sm font-semibold text-gray-900">edit</th>
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y divide-gray-200">
+                                {eventList.map((event) => (
+                                    <tr key={event.id} className="relative hover:bg-gray-50">
+                                        <td className="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-900">
+                                            <a href={`/event-details/${event.id}`} className="text-indigo-600 hover:text-indigo-900">
+                                                {event.title}
+                                            </a>
+                                        </td>
+                                        <td className="px-3 py-4 text-sm text-gray-500 break-words">{event.description}</td>
+                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{event.price}</td>
+                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{event.status}</td>
+                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{event.location}</td>
+                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{new Date(event.start_time).toLocaleDateString()}</td>
+                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{new Date(event.end_time).toLocaleDateString()}</td>
+                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{event.category}</td>
+                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{event.capacity}</td>
+                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                            <Menu as="div" className="relative inline-block text-left">
+                                                <div>
+                                                    <MenuButton className="flex items-center rounded-full  text-gray-800 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-purple-800 focus:ring-offset-2 focus:ring-offset-gray-100">
+                                                        <span className="sr-only">Open options</span>
+                                                        <EllipsisVerticalIcon aria-hidden="true" className="h-5 w-5" />
+                                                    </MenuButton>
+                                                </div>
+
+                                                <MenuItems
+                                                    transition
+                                                    className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                                    <MenuItem>
+                                                        {({ active }) => (
+                                                            <button onClick={() => handleEdit(event)} className={`${active ? 'bg-gray-100' : ''} block  text-left px-4 w-full py-2 text-sm text-gray-700`}>
+                                                                Edit
+                                                            </button>
+                                                        )}
+                                                    </MenuItem>
+                                                    <MenuItem>
+                                                        {({ active }) => (
+                                                            <button
+                                                                onClick={() => handleDelete(event.id)}
+                                                                className={`${active ? 'bg-gray-100' : ''
+                                                                    } block w-full px-4 py-2 text-left text-sm text-gray-700`}>
+                                                                Delete
+                                                            </button>
+                                                        )}
+                                                    </MenuItem>
+                                                </MenuItems>
+                                            </Menu>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    )}
+                </>
             )}
         </div>
     );

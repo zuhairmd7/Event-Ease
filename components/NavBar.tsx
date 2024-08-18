@@ -4,13 +4,12 @@ import React from 'react'
 import EventLogo from './EventLogo';
 import AuthButton from './AuthButton';
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 
 export async function NavBar() {
 
     return (
-
-        <Disclosure as="nav" className="bg-gray-300 shadow">
+        <Disclosure as="nav" className="bg-transparent">
             <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
                 <div className="relative flex h-16 justify-between">
                     <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -27,17 +26,17 @@ export async function NavBar() {
                             <EventLogo />
                         </div>
                         <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
-                            <Link href="/" className="inline-flex items-center border-b-2 border-purple-950 px-1 pt-1 text-sm font-bold text-gray-900">
+                            <Link href="/" className="inline-flex items-center px-1 pt-1 text-sm font-bold text-gray-900">
                                 Home
                             </Link>
                             <Link href="/event-details" className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-bold text-black hover:border-gray-300 hover:text-gray-700">
-                                Event Details
+                                Upcoming Events
                             </Link>
                             <Link href="/protected" className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-bold text-black hover:border-gray-300 hover:text-gray-700">
                                 Admin Panel
                             </Link>
-                            <Link href="/registration" className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-bold text-black hover:border-gray-300 hover:text-gray-700">
-                                Regestration
+                            <Link href="/calendar" className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-bold text-black hover:border-gray-300 hover:text-gray-700">
+                                Calendar
                             </Link>
                         </div>
                     </div>
@@ -109,11 +108,15 @@ export async function NavBar() {
                         className="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700">
                         Admin Panel
                     </DisclosureButton>
+                    <DisclosureButton
+                        as="a"
+                        href="/calendar"
+                        className="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700">
+                        Calendar
+                    </DisclosureButton>
                 </div>
             </DisclosurePanel>
         </Disclosure>
     )
 }
 export default NavBar;
-
-

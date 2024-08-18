@@ -13,7 +13,7 @@ export default function EventForm() {
         start_time: "",
         end_time: "",
         category: "",
-        capacity: 0,
+        capacity: 10,
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,7 +46,7 @@ export default function EventForm() {
 
     return (
 
-        <div className="w-full max-w-md md:-mt-32 bg-white p-8 rounded-lg shadow-lg border-2 border-dashed border-purple-800">
+        <div className="w-full max-w-md lg:-mt-32 mx-auto bg-white p-8 rounded-lg shadow-lg border-2 border-dashed border-purple-800">
             <h2 className="text-2xl font-bold mb-4">Create New Event</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="flex flex-col">

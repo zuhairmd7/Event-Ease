@@ -58,7 +58,7 @@ export default async function AuthButton() {
     <div className="flex items-center gap-4">
       {/* Hey, {user.email}! */}
       <form action={signOut}>
-        <button className="block px-4 py-2 text-sm hover:bg-gray-100 w-full text-red-700 data-[focus]:bg-gray-100" /* className="ms-3 py-1 px-1 flex text-sm rounded-md bg-purple-950 hover:cursor-pointer text-white font-semibold no-underline " */>
+        <button className="flex px-4 py-2 w-48 text-sm hover:bg-gray-100 items-start left-0 text-red-700 data-[focus]:bg-gray-100" /* className="ms-3 py-1 px-1 flex text-sm rounded-md bg-purple-950 hover:cursor-pointer text-white font-semibold no-underline " */>
           Logout
         </button>
       </form>

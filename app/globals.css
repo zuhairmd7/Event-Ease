@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
+/* @layer base {
   :root {
     --background: 200 20% 98%;
     --btn-background: 200 10% 91%;
@@ -24,4 +24,13 @@
   * {
     @apply border-foreground/20;
   }
+}
+ */
+
+.word {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #555555;
+  display: inline-block;
+  height: 2.5em;
 }
