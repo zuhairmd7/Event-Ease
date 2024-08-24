@@ -9,7 +9,7 @@ const defaultUrl = process.env.VERCEL_URL
 
 export const metadata = {
   metadataBase: new URL(defaultUrl),
-  title: "EventEase | Dashboard",
+  /* title: "EventEase | Dashboard", */
   description: "My EventEase Project Dashboard",
 };
 
@@ -20,20 +20,20 @@ type LayoutProps = {
 export default function RootLayout({ children }: LayoutProps) {
 
   return (
-    
-      <html lang="en">
-        <head>
-          <title>EventEase</title>
-        </head>
-        <body>
-          <div>
-            <NavBar />
-            <main>
-              {children}
-            </main>
-          </div>
-        </body>
-      </html>
-    
+
+    <html lang="en">
+      <head>
+        <title>EventEase</title>
+      </head>
+      <body>
+        <div>
+          <NavBar />
+          <main>
+            {children}
+          </main>
+        </div>
+      </body>
+    </html>
+
   );
 }

@@ -12,7 +12,6 @@ type Event = {
     title: string;
     description: string;
     price: number;
-    status: string;
     location: string;
     start_time: string;
     end_time: string;
@@ -102,8 +101,7 @@ export default function EventList({ events }: EventListProps) {
                                 <button
                                     type="button"
                                     className="inline-flex rounded-md bg-green-50 p-1.5 text-green-500 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 focus:ring-offset-green-50"
-                                    onClick={() => setShowAlert(false)}
-                                >
+                                    onClick={() => setShowAlert(false)}>
                                     <span className="sr-only">Dismiss</span>
                                     <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                         <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
@@ -142,7 +140,6 @@ export default function EventList({ events }: EventListProps) {
                                     <th scope="col" className="py-3.5 pl-4 pr-3 text-start text-sm font-semibold text-gray-900 sm:pl-0">Name</th>
                                     <th scope="col" className="px-3 py-3.5 text-start text-sm font-semibold text-gray-900">Description</th>
                                     <th scope="col" className="px-3 py-3.5 text-start text-sm font-semibold text-gray-900">Price</th>
-                                    <th scope="col" className="px-3 py-3.5 text-start text-sm font-semibold text-gray-900">Status</th>
                                     <th scope="col" className="px-3 py-3.5 text-start text-sm font-semibold text-gray-900">Location</th>
                                     <th scope="col" className="px-3 py-3.5 text-start text-sm font-semibold text-gray-900">Start Time</th>
                                     <th scope="col" className="px-3 py-3.5 text-start text-sm font-semibold text-gray-900">End Time</th>
@@ -161,7 +158,6 @@ export default function EventList({ events }: EventListProps) {
                                         </td>
                                         <td className="px-3 py-4 text-sm text-gray-500 break-words">{event.description}</td>
                                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{event.price}</td>
-                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{event.status}</td>
                                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{event.location}</td>
                                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{new Date(event.start_time).toLocaleDateString()}</td>
                                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{new Date(event.end_time).toLocaleDateString()}</td>

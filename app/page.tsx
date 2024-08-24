@@ -1,9 +1,9 @@
 'use client';
-import TestAuthComponent from '@/components/TestAuthComponent';
-import { useState } from 'react'
-import { Dialog, DialogPanel } from '@headlessui/react'
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import { useEffect } from 'react';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import Footer from '@/components/Footer';
+import Link from 'next/link';
 
 /* const links = [
     { name: 'Open roles', href: '#' },
@@ -18,39 +18,39 @@ const stats = [
     { name: 'Customer Satisfaction', value: '98%' },
 ]
 export default function Home() {
-
+    useEffect(() => {
+        AOS.init();
+    }, []);
     return (
         <>
-            <div className="bg-white">
-
+            <div className="bg-white max-h-screen">
                 <div className="relative isolate overflow-hidden bg-gradient-to-b from-indigo-100/20 pt-14">
                     <div
                         aria-hidden="true"
-                        className="absolute inset-y-0 right-1/2 -z-10 -mr-96 w-[200%] origin-top-right skew-x-[-30deg] bg-white shadow-xl shadow-indigo-600/10 ring-1 ring-indigo-50 sm:-mr-80 lg:-mr-96"
-                    />
-                    <div className="mx-auto max-w-7xl px-6 py-32 sm:py-40 lg:px-8">
-                        <div className="mx-auto max-w-2xl lg:mx-0 lg:grid lg:max-w-none lg:grid-cols-2 lg:gap-x-16 lg:gap-y-6 xl:grid-cols-1 xl:grid-rows-1 xl:gap-x-8">
-                            <h1 className="max-w-2xl text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl lg:col-span-2 xl:col-auto">
+                        className="absolute inset-y-0 right-1/2 -z-10 -mr-96 w-[200%] origin-top-right skew-x-[-30deg] bg-white shadow-xl shadow-indigo-600/10 ring-1 ring-indigo-50 sm:-mr-80 lg:-mr-96" />
+                    <div className="mx-auto max-w-7xl px-6 py-32 sm:py-40 lg:px-8" >
+                        <div className="mx-auto max-w-2xl -mt-32 lg:mx-0 lg:-mt-0 lg:grid lg:max-w-none lg:grid-cols-2 lg:gap-x-16 lg:gap-y-6 xl:grid-cols-1 xl:grid-rows-1 xl:gap-x-8" >
+                            <h1 className="max-w-2xl text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl lg:col-span-2 xl:col-auto" data-aos="fade-right">
                                 We’re changing the way people make events !
                             </h1>
-                            <div className="mt-6 max-w-xl lg:mt-0 xl:col-end-1 xl:row-start-1">
+                            <div className="mt-6 max-w-xl lg:mt-0 xl:col-end-1 xl:row-start-1" >
                                 <p className="text-lg leading-8 text-gray-600">
                                     Discover, manage, and track your events seamlessly. Join our community to effortlessly organize and keep up with your events, all in one place.
                                 </p>
 
-                                <div className="mt-10 flex items-center gap-x-6">
-                                    <a
-                                        href="#"
-                                        className="rounded-md bg-indigo-800 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                                    >
+                                <div className="mt-10  flex items-center gap-x-6">
+                                    <Link
+                                        href="/protected"
+                                        className="rounded-md bg-indigo-800 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                                         Get started
-                                    </a>
-                                    <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-                                        Learn more <span aria-hidden="true">→</span>
-                                    </a>
+                                    </Link>
+                                    <Link href="#" className="text-sm font-semibold leading-6 text-gray-900">
+                                        Learn more
+                                    </Link>
                                 </div>
                             </div>
                             <img
+                                data-aos="fade-up-left"
                                 alt=""
                                 src="https://images.unsplash.com/photo-1595877786670-393ef0ac0961?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                                 className="mt-10 aspect-[6/5] w-full max-w-lg rounded-2xl object-cover sm:mt-16 lg:mt-0 lg:max-w-none xl:row-span-2 xl:row-end-2 xl:mt-36"
@@ -94,7 +94,7 @@ export default function Home() {
                 </div>
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
                     <div className="mx-auto max-w-2xl lg:mx-0">
-                        <h2 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">Effortlessly Manage Your Events</h2>
+                        <h2 className="text-4xl font-bold tracking-tight text-white sm:text-6xl" data-aos="zoom-out">Effortlessly Manage Your Events</h2>
                         <p className="mt-6 text-lg leading-8 text-gray-300">
                             From planning to execution, our platform ensures a seamless experience. Whether it’s a conference, workshop, or celebration, we provide the tools you need to make every event a success.
                         </p>
@@ -107,7 +107,7 @@ export default function Home() {
                                 </a>
                             ))}
                         </div> */}
-                        <dl className="mt-16 grid grid-cols-1 gap-8 sm:mt-20 sm:grid-cols-2 lg:grid-cols-4">
+                        <dl className="mt-16 grid grid-cols-1 gap-8 sm:mt-20 sm:grid-cols-2 lg:grid-cols-4" data-aos="zoom-out">
                             {stats.map((stat) => (
                                 <div key={stat.name} className="flex flex-col-reverse">
                                     <dt className="text-base leading-7 text-gray-300">{stat.name}</dt>
@@ -125,7 +125,7 @@ export default function Home() {
                     <h2 className="text-center text-lg font-semibold leading-8 text-gray-900">
                         Trusted by the world’s most innovative teams
                     </h2>
-                    <div className="mx-auto mt-10 grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-5">
+                    <div data-aos="flip-down" className="mx-auto mt-10 grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-5">
                         <img
                             alt="Transistor"
                             src="/images/Birzeit-University-BZU-logo.png"
@@ -165,14 +165,14 @@ export default function Home() {
                 </div>
             </div>
 
-            <div className="bg-white py-16 sm:py-24">
+            <div className="bg-white py-16 sm:py-24" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
                     <div className="relative isolate overflow-hidden bg-gray-900 px-6 py-24 shadow-2xl sm:rounded-3xl sm:px-24 xl:py-32">
                         <h2 className="mx-auto max-w-2xl text-center text-3xl font-bold tracking-tight text-white sm:text-4xl">
-                            Get notified when we’re launching.
+                            Stay Updated on Our Latest Events !
                         </h2>
                         <p className="mx-auto mt-2 max-w-xl text-center text-lg leading-8 text-gray-300">
-                            Reprehenderit ad esse et non officia in nulla. Id proident tempor incididunt nostrud nulla et culpa.
+                            Don’t miss out on any upcoming events or updates. write your email and be the first to know what’s happening.
                         </p>
                         <form className="mx-auto mt-10 flex max-w-md gap-x-4">
                             <label htmlFor="email-address" className="sr-only">
@@ -216,15 +216,15 @@ export default function Home() {
                         </svg>
                     </div>
                 </div>
-            </div>
+            </div >
 
             <section className="bg-white py-24 sm:py-32">
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
                     <div className="mx-auto grid max-w-2xl grid-cols-1 lg:mx-0 lg:max-w-none lg:grid-cols-2">
-                        <div className="flex flex-col pb-10 sm:pb-16 lg:pb-0 lg:pr-8 xl:pr-20">
+                        <div className="flex flex-col pb-10 sm:pb-16 lg:pb-0 lg:pr-8 xl:pr-20" data-aos="fade-right">
                             <img alt="" src="https://tailwindui.com/img/logos/tuple-logo-gray-900.svg" className="h-12 self-start" />
                             <figure className="mt-10 flex flex-auto flex-col justify-between">
-                                <blockquote className="text-lg leading-8 text-gray-900">
+                                <blockquote className="text-lg leading-8 text-gray-900" >
                                     <p>
                                         “As a small business owner, I needed an efficient way to manage multiple events simultaneously, and EventNow has been a game-changer. The ability to customize event pages, track registrations, and handle payments all in one place has simplified my workflow. The support team is also fantastic—they’re always there when I need help.”
                                     </p>
@@ -242,26 +242,28 @@ export default function Home() {
                                 </figcaption>
                             </figure>
                         </div>
-                        <div className="flex flex-col border-t border-gray-900/10 pt-10 sm:pt-16 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-0 xl:pl-20">
-                            <img alt="" src="/images/Spotify_Logo.png" className="h-10 self-start" />
-                            <figure className="mt-10 flex flex-auto flex-col justify-between">
-                                <blockquote className="text-lg leading-8 text-gray-900">
-                                    <p>
-                                        “EventNow has completely transformed the way we manage our events. The platform is incredibly intuitive and makes it easy to organize everything from start to finish. The real-time updates and seamless communication features have saved us so much time and effort. We couldn't be happier with the results!”
-                                    </p>
-                                </blockquote>
-                                <figcaption className="mt-10 flex items-center gap-x-6">
-                                    <img
-                                        alt=""
-                                        src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                        className="h-14 w-14 rounded-full bg-gray-50"
-                                    />
-                                    <div className="text-base">
-                                        <div className="font-semibold text-gray-900">Joseph Rodriguez</div>
-                                        <div className="mt-1 text-gray-500">CEO of spotify</div>
-                                    </div>
-                                </figcaption>
-                            </figure>
+                        <div className="flex flex-col border-t border-gray-900/10 pt-10 sm:pt-16 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-0 xl:pl-20" >
+                            <div data-aos="fade-left">
+                                <img alt="" src="/images/Spotify_Logo.png" className="h-10 self-start" />
+                                <figure className="mt-10 flex flex-auto flex-col justify-between" >
+                                    <blockquote className="text-lg leading-8 text-gray-900" >
+                                        <p>
+                                            “EventNow has completely transformed the way we manage our events. The platform is incredibly intuitive and makes it easy to organize everything from start to finish. The real-time updates and seamless communication features have saved us so much time and effort. We couldn't be happier with the results!”
+                                        </p>
+                                    </blockquote>
+                                    <figcaption className="mt-10 flex items-center gap-x-6">
+                                        <img
+                                            alt=""
+                                            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                            className="h-14 w-14 rounded-full bg-gray-50"
+                                        />
+                                        <div className="text-base">
+                                            <div className="font-semibold text-gray-900">Daniel Ek</div>
+                                            <div className="mt-1 text-gray-500">CEO of spotify</div>
+                                        </div>
+                                    </figcaption>
+                                </figure>
+                            </div>
                         </div>
                     </div>
                 </div>

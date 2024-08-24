@@ -1,380 +1,321 @@
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import {
-    ChevronDownIcon,
-    ChevronLeftIcon,
-    ChevronRightIcon,
-    ClockIcon,
-    EllipsisHorizontalIcon,
-} from '@heroicons/react/20/solid'
-import CalendarIntro from '@/components/CalendarIntro'
+"use client";
 
-const days = [
-    { date: '2021-12-27', events: [] },
-    { date: '2021-12-28', events: [] },
-    { date: '2021-12-29', events: [] },
-    { date: '2021-12-30', events: [] },
-    { date: '2021-12-31', events: [] },
-    { date: '2022-01-01', isCurrentMonth: true, events: [] },
-    { date: '2022-01-02', isCurrentMonth: true, events: [] },
+/*
+import CalModal from '../../components/CalModal';
+ */
+import { createClient } from '@/utils/supabase/client';
+import { Menu, Transition } from '@headlessui/react'
+import { EllipsisVerticalIcon } from '@heroicons/react/24/outline'
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid'
+import {
+    add,
+    eachDayOfInterval,
+    endOfMonth,
+    format,
+    getDay,
+    isEqual,
+    isSameDay,
+    isSameMonth,
+    isToday,
+    parse,
+    parseISO,
+    startOfToday,
+} from 'date-fns'
+
+import { Fragment, use, useEffect, useState } from 'react'
+import CalendarIntro from '@/components/CalendarIntro';
+
+const meetings = [
     {
-        date: '2022-01-03',
-        isCurrentMonth: true,
-        events: [
-            { id: 1, name: 'Design review', time: '10AM', datetime: '2022-01-03T10:00', href: '#' },
-            { id: 2, name: 'Sales meeting', time: '2PM', datetime: '2022-01-03T14:00', href: '#' },
-        ],
+        id: 1,
+        name: 'Leslie Alexander',
+        imageUrl:
+            'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+        startDatetime: '2024-08-29T13:00',
+        endDatetime: '2024-08-30T14:30',
     },
-    { date: '2022-01-04', isCurrentMonth: true, events: [] },
-    { date: '2022-01-05', isCurrentMonth: true, events: [] },
-    { date: '2022-01-06', isCurrentMonth: true, events: [] },
     {
-        date: '2022-01-07',
-        isCurrentMonth: true,
-        events: [{ id: 3, name: 'Date night', time: '6PM', datetime: '2022-01-08T18:00', href: '#' }],
+        id: 2,
+        name: 'Michael Foster',
+        imageUrl:
+            'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+        startDatetime: '2022-05-20T09:00',
+        endDatetime: '2022-05-20T11:30',
     },
-    { date: '2022-01-08', isCurrentMonth: true, events: [] },
-    { date: '2022-01-09', isCurrentMonth: true, events: [] },
-    { date: '2022-01-10', isCurrentMonth: true, events: [] },
-    { date: '2022-01-11', isCurrentMonth: true, events: [] },
     {
-        date: '2022-01-12',
-        isCurrentMonth: true,
-        isToday: true,
-        events: [{ id: 6, name: "Sam's birthday party", time: '2PM', datetime: '2022-01-25T14:00', href: '#' }],
+        id: 3,
+        name: 'Dries Vincent',
+        imageUrl:
+            'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+        startDatetime: '2022-05-20T17:00',
+        endDatetime: '2022-05-20T18:30',
     },
-    { date: '2022-01-13', isCurrentMonth: true, events: [] },
-    { date: '2022-01-14', isCurrentMonth: true, events: [] },
-    { date: '2022-01-15', isCurrentMonth: true, events: [] },
-    { date: '2022-01-16', isCurrentMonth: true, events: [] },
-    { date: '2022-01-17', isCurrentMonth: true, events: [] },
-    { date: '2022-01-18', isCurrentMonth: true, events: [] },
-    { date: '2022-01-19', isCurrentMonth: true, events: [] },
-    { date: '2022-01-20', isCurrentMonth: true, events: [] },
-    { date: '2022-01-21', isCurrentMonth: true, events: [] },
     {
-        date: '2022-01-22',
-        isCurrentMonth: true,
-        isSelected: true,
-        events: [
-            { id: 4, name: 'Maple syrup museum', time: '3PM', datetime: '2022-01-22T15:00', href: '#' },
-            { id: 5, name: 'Hockey game', time: '7PM', datetime: '2022-01-22T19:00', href: '#' },
-        ],
+        id: 4,
+        name: 'Leslie Alexander',
+        imageUrl:
+            'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+        startDatetime: '2022-06-09T13:00',
+        endDatetime: '2022-06-09T14:30',
     },
-    { date: '2022-01-23', isCurrentMonth: true, events: [] },
-    { date: '2022-01-24', isCurrentMonth: true, events: [] },
-    { date: '2022-01-25', isCurrentMonth: true, events: [] },
-    { date: '2022-01-26', isCurrentMonth: true, events: [] },
-    { date: '2022-01-27', isCurrentMonth: true, events: [] },
-    { date: '2022-01-28', isCurrentMonth: true, events: [] },
-    { date: '2022-01-29', isCurrentMonth: true, events: [] },
-    { date: '2022-01-30', isCurrentMonth: true, events: [] },
-    { date: '2022-01-31', isCurrentMonth: true, events: [] },
-    { date: '2022-02-01', events: [] },
-    { date: '2022-02-02', events: [] },
-    { date: '2022-02-03', events: [] },
     {
-        date: '2022-02-04',
-        events: [{ id: 7, name: 'Cinema with friends', time: '9PM', datetime: '2022-02-04T21:00', href: '#' }],
+        id: 5,
+        name: 'Michael Foster',
+        imageUrl:
+            'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+        startDatetime: '2022-05-13T14:00',
+        endDatetime: '2022-05-13T14:30',
     },
-    { date: '2022-02-05', events: [] },
-    { date: '2022-02-06', events: [] },
 ]
-const selectedDay = days.find((day) => day.isSelected)
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
 export default function Example() {
-    return (
-        <>
+    let today = startOfToday()
+    let [selectedDay, setSelectedDay] = useState(today)
+    let [currentMonth, setCurrentMonth] = useState(format(today, 'MMM-yyyy'))
+    let firstDayCurrentMonth = parse(currentMonth, 'MMM-yyyy', new Date())
+    let [events, setEvents] = useState([]);
 
+    useEffect(() => {
+        async function fetchEvents() {
+            const supabase = createClient();
+            let { data: events, error } = await supabase
+                .from('events')
+                .select('*')
+                /* .eq('user_id', user.id) */
+                .order('start_time', { ascending: true });
+
+            if (error) {
+                console.error('Error fetching events:', error);
+                return;
+            }
+
+            setEvents(events);
+        }
+
+        fetchEvents();
+    }, []);
+
+    let days = eachDayOfInterval({
+        start: firstDayCurrentMonth,
+        end: endOfMonth(firstDayCurrentMonth),
+    })
+
+    function previousMonth() {
+        let firstDayPreviousMonth = add(firstDayCurrentMonth, { months: -1 })
+        setCurrentMonth(format(firstDayPreviousMonth, 'MMM-yyyy'))
+    }
+
+    function nextMonth() {
+        let firstDayNextMonth = add(firstDayCurrentMonth, { months: 1 })
+        setCurrentMonth(format(firstDayNextMonth, 'MMM-yyyy'))
+    }
+
+    let selectedDayMeetings = events.filter((event) =>
+        isSameDay(parseISO(event.start_time), selectedDay)
+    )
+
+    return (
+
+        <>
             <CalendarIntro />
-            <div className="lg:flex lg:h-full lg:flex-col md:mx-10">
-                <header className="flex items-center justify-between border-b border-gray-200 px-6 py-4 lg:flex-none">
-                    <h1 className="text-base font-semibold leading-6 text-gray-900">
-                        <time dateTime="2022-01">January 2022</time>
-                    </h1>
-                    <div className="flex items-center">
-                        <div className="relative flex items-center rounded-md bg-white shadow-sm md:items-stretch">
+            <div className="max-w-md px-4 mx-auto sm:px-7 md:max-w-4xl md:px-6 mt-16">
+                <div className="md:grid md:grid-cols-2 md:divide-x md:divide-gray-200">
+                    <div className="md:pr-14">
+                        <div className="flex items-center">
+                            <h2 className="flex-auto font-semibold text-gray-900">
+                                {format(firstDayCurrentMonth, 'MMMM yyyy')}
+                            </h2>
                             <button
                                 type="button"
-                                className="flex h-9 w-12 items-center justify-center rounded-l-md border-y border-l border-gray-300 pr-1 text-gray-400 hover:text-gray-500 focus:relative md:w-9 md:pr-0 md:hover:bg-gray-50"
+                                onClick={previousMonth}
+                                className="-my-1.5 flex flex-none items-center justify-center p-1.5 text-gray-400 hover:text-gray-500"
                             >
                                 <span className="sr-only">Previous month</span>
-                                <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
+                                <ChevronLeftIcon className="w-5 h-5" aria-hidden="true" />
                             </button>
                             <button
+                                onClick={nextMonth}
                                 type="button"
-                                className="hidden border-y border-gray-300 px-3.5 text-sm font-semibold text-gray-900 hover:bg-gray-50 focus:relative md:block"
-                            >
-                                Today
-                            </button>
-                            <span className="relative -mx-px h-5 w-px bg-gray-300 md:hidden" />
-                            <button
-                                type="button"
-                                className="flex h-9 w-12 items-center justify-center rounded-r-md border-y border-r border-gray-300 pl-1 text-gray-400 hover:text-gray-500 focus:relative md:w-9 md:pl-0 md:hover:bg-gray-50"
+                                className="-my-1.5 -mr-1.5 ml-2 flex flex-none items-center justify-center p-1.5 text-gray-400 hover:text-gray-500"
                             >
                                 <span className="sr-only">Next month</span>
-                                <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
+                                <ChevronRightIcon className="w-5 h-5" aria-hidden="true" />
                             </button>
                         </div>
-                        <div className="hidden md:ml-4 md:flex md:items-center">
-                            <Menu as="div" className="relative">
-                                <MenuButton
-                                    type="button"
-                                    className="flex items-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                                >
-                                    Month view
-                                    <ChevronDownIcon className="-mr-1 h-5 w-5 text-gray-400" aria-hidden="true" />
-                                </MenuButton>
-
-                                <MenuItems
-                                    transition
-                                    className="absolute right-0 z-10 mt-3 w-36 origin-top-right overflow-hidden rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none data-[closed]:scale-95 data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
-                                >
-                                    <div className="py-1">
-                                        <MenuItem>
-                                            <a
-                                                href="#"
-                                                className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
-                                            >
-                                                Day view
-                                            </a>
-                                        </MenuItem>
-                                        <MenuItem>
-                                            <a
-                                                href="#"
-                                                className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
-                                            >
-                                                Week view
-                                            </a>
-                                        </MenuItem>
-                                        <MenuItem>
-                                            <a
-                                                href="#"
-                                                className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
-                                            >
-                                                Month view
-                                            </a>
-                                        </MenuItem>
-                                        <MenuItem>
-                                            <a
-                                                href="#"
-                                                className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
-                                            >
-                                                Year view
-                                            </a>
-                                        </MenuItem>
-                                    </div>
-                                </MenuItems>
-                            </Menu>
-                            <div className="ml-6 h-6 w-px bg-gray-300" />
-                            <button
-                                type="button"
-                                className="ml-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                            >
-                                Add event
-                            </button>
+                        <div className="grid grid-cols-7 mt-10 text-xs leading-6 text-center text-gray-500">
+                            <div>S</div>
+                            <div>M</div>
+                            <div>T</div>
+                            <div>W</div>
+                            <div>T</div>
+                            <div>F</div>
+                            <div>S</div>
                         </div>
-                        <Menu as="div" className="relative ml-6 md:hidden">
-                            <MenuButton className="-mx-2 flex items-center rounded-full border border-transparent p-2 text-gray-400 hover:text-gray-500">
-                                <span className="sr-only">Open menu</span>
-                                <EllipsisHorizontalIcon className="h-5 w-5" aria-hidden="true" />
-                            </MenuButton>
-
-                            <MenuItems
-                                transition
-                                className="absolute right-0 z-10 mt-3 w-36 origin-top-right divide-y divide-gray-100 overflow-hidden rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none data-[closed]:scale-95 data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
-                            >
-                                <div className="py-1">
-                                    <MenuItem>
-                                        <a
-                                            href="#"
-                                            className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
-                                        >
-                                            Create event
-                                        </a>
-                                    </MenuItem>
-                                </div>
-                                <div className="py-1">
-                                    <MenuItem>
-                                        <a
-                                            href="#"
-                                            className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
-                                        >
-                                            Go to today
-                                        </a>
-                                    </MenuItem>
-                                </div>
-                                <div className="py-1">
-                                    <MenuItem>
-                                        <a
-                                            href="#"
-                                            className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
-                                        >
-                                            Day view
-                                        </a>
-                                    </MenuItem>
-                                    <MenuItem>
-                                        <a
-                                            href="#"
-                                            className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
-                                        >
-                                            Week view
-                                        </a>
-                                    </MenuItem>
-                                    <MenuItem>
-                                        <a
-                                            href="#"
-                                            className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
-                                        >
-                                            Month view
-                                        </a>
-                                    </MenuItem>
-                                    <MenuItem>
-                                        <a
-                                            href="#"
-                                            className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
-                                        >
-                                            Year view
-                                        </a>
-                                    </MenuItem>
-                                </div>
-                            </MenuItems>
-                        </Menu>
-                    </div>
-                </header>
-                <div className="shadow ring-1 ring-black ring-opacity-5 lg:flex lg:flex-auto lg:flex-col">
-                    <div className="grid grid-cols-7 gap-px border-b border-gray-300 bg-gray-200 text-center text-xs font-semibold leading-6 text-gray-700 lg:flex-none">
-                        <div className="bg-white py-2">
-                            M<span className="sr-only sm:not-sr-only">on</span>
-                        </div>
-                        <div className="bg-white py-2">
-                            T<span className="sr-only sm:not-sr-only">ue</span>
-                        </div>
-                        <div className="bg-white py-2">
-                            W<span className="sr-only sm:not-sr-only">ed</span>
-                        </div>
-                        <div className="bg-white py-2">
-                            T<span className="sr-only sm:not-sr-only">hu</span>
-                        </div>
-                        <div className="bg-white py-2">
-                            F<span className="sr-only sm:not-sr-only">ri</span>
-                        </div>
-                        <div className="bg-white py-2">
-                            S<span className="sr-only sm:not-sr-only">at</span>
-                        </div>
-                        <div className="bg-white py-2">
-                            S<span className="sr-only sm:not-sr-only">un</span>
-                        </div>
-                    </div>
-                    <div className="flex bg-gray-200 text-xs leading-6 text-gray-700 lg:flex-auto">
-                        <div className="hidden w-full lg:grid lg:grid-cols-7 lg:grid-rows-6 lg:gap-px">
-                            {days.map((day) => (
+                        <div className="grid grid-cols-7 mt-2 text-sm">
+                            {days.map((day, dayIdx) => (
                                 <div
-                                    key={day.date}
+                                    key={day.toString()}
                                     className={classNames(
-                                        day.isCurrentMonth ? 'bg-white' : 'bg-gray-50 text-gray-500',
-                                        'relative px-3 py-2',
+                                        dayIdx === 0 && colStartClasses[getDay(day)],
+                                        'py-1.5'
                                     )}
                                 >
-                                    <time
-                                        dateTime={day.date}
-                                        className={
-                                            day.isToday
-                                                ? 'flex h-6 w-6 items-center justify-center rounded-full bg-indigo-600 font-semibold text-white'
-                                                : undefined
-                                        }
-                                    >
-                                        {day.date.split('-').pop().replace(/^0/, '')}
-                                    </time>
-                                    {day.events.length > 0 && (
-                                        <ol className="mt-2">
-                                            {day.events.slice(0, 2).map((event) => (
-                                                <li key={event.id}>
-                                                    <a href={event.href} className="group flex">
-                                                        <p className="flex-auto truncate font-medium text-gray-900 group-hover:text-indigo-600">
-                                                            {event.name}
-                                                        </p>
-                                                        <time
-                                                            dateTime={event.datetime}
-                                                            className="ml-3 hidden flex-none text-gray-500 group-hover:text-indigo-600 xl:block"
-                                                        >
-                                                            {event.time}
-                                                        </time>
-                                                    </a>
-                                                </li>
-                                            ))}
-                                            {day.events.length > 2 && <li className="text-gray-500">+ {day.events.length - 2} more</li>}
-                                        </ol>
-                                    )}
-                                </div>
-                            ))}
-                        </div>
-                        <div className="isolate grid w-full grid-cols-7 grid-rows-6 gap-px lg:hidden">
-                            {days.map((day) => (
-                                <button
-                                    key={day.date}
-                                    type="button"
-                                    className={classNames(
-                                        day.isCurrentMonth ? 'bg-white' : 'bg-gray-50',
-                                        (day.isSelected || day.isToday) && 'font-semibold',
-                                        day.isSelected && 'text-white',
-                                        !day.isSelected && day.isToday && 'text-indigo-600',
-                                        !day.isSelected && day.isCurrentMonth && !day.isToday && 'text-gray-900',
-                                        !day.isSelected && !day.isCurrentMonth && !day.isToday && 'text-gray-500',
-                                        'flex h-14 flex-col px-3 py-2 hover:bg-gray-100 focus:z-10',
-                                    )}
-                                >
-                                    <time
-                                        dateTime={day.date}
+                                    <button
+                                        type="button"
+                                        onClick={() => setSelectedDay(day)}
                                         className={classNames(
-                                            day.isSelected && 'flex h-6 w-6 items-center justify-center rounded-full',
-                                            day.isSelected && day.isToday && 'bg-indigo-600',
-                                            day.isSelected && !day.isToday && 'bg-gray-900',
-                                            'ml-auto',
+                                            isEqual(day, selectedDay) && 'text-white',
+                                            !isEqual(day, selectedDay) &&
+                                            isToday(day) &&
+                                            'text-red-500',
+                                            !isEqual(day, selectedDay) &&
+                                            !isToday(day) &&
+                                            isSameMonth(day, firstDayCurrentMonth) &&
+                                            'text-gray-900',
+                                            !isEqual(day, selectedDay) &&
+                                            !isToday(day) &&
+                                            !isSameMonth(day, firstDayCurrentMonth) &&
+                                            'text-gray-400',
+                                            isEqual(day, selectedDay) && isToday(day) && 'bg-indigo-600',
+                                            isEqual(day, selectedDay) &&
+                                            !isToday(day) &&
+                                            'bg-gray-900',
+                                            !isEqual(day, selectedDay) && 'hover:bg-gray-200',
+                                            (isEqual(day, selectedDay) || isToday(day)) &&
+                                            'font-semibold',
+                                            'mx-auto flex h-8 w-8 items-center justify-center rounded-full'
                                         )}
                                     >
-                                        {day.date.split('-').pop().replace(/^0/, '')}
-                                    </time>
-                                    <span className="sr-only">{day.events.length} events</span>
-                                    {day.events.length > 0 && (
-                                        <span className="-mx-0.5 mt-auto flex flex-wrap-reverse">
-                                            {day.events.map((event) => (
-                                                <span key={event.id} className="mx-0.5 mb-1 h-1.5 w-1.5 rounded-full bg-gray-400" />
-                                            ))}
-                                        </span>
-                                    )}
-                                </button>
+                                        <time dateTime={format(day, 'yyyy-MM-dd')}>
+                                            {format(day, 'd')}
+                                        </time>
+                                    </button>
+
+                                    <div className="w-1 h-1 mx-auto mt-1">
+                                        {events.some((event) =>
+                                            isSameDay(parseISO(event.start_time), day)
+                                        ) && (
+                                                <div className="w-1 h-1 rounded-full bg-orange-500"></div>
+                                            )}
+                                    </div>
+                                </div>
                             ))}
                         </div>
                     </div>
-                </div>
-                {selectedDay?.events.length > 0 && (
-                    <div className="px-4 py-10 sm:px-6 lg:hidden">
-                        <ol className="divide-y divide-gray-100 overflow-hidden rounded-lg bg-white text-sm shadow ring-1 ring-black ring-opacity-5">
-                            {selectedDay.events.map((event) => (
-                                <li key={event.id} className="group flex p-4 pr-6 focus-within:bg-gray-50 hover:bg-gray-50">
-                                    <div className="flex-auto">
-                                        <p className="font-semibold text-gray-900">{event.name}</p>
-                                        <time dateTime={event.datetime} className="mt-2 flex items-center text-gray-700">
-                                            <ClockIcon className="mr-2 h-5 w-5 text-gray-400" aria-hidden="true" />
-                                            {event.time}
-                                        </time>
-                                    </div>
-                                    <a
-                                        href={event.href}
-                                        className="ml-6 flex-none self-center rounded-md bg-white px-3 py-2 font-semibold text-gray-900 opacity-0 shadow-sm ring-1 ring-inset ring-gray-300 hover:ring-gray-400 focus:opacity-100 group-hover:opacity-100"
-                                    >
-                                        Edit<span className="sr-only">, {event.name}</span>
-                                    </a>
-                                </li>
-                            ))}
+                    <section className="mt-12 md:mt-0 md:pl-14">
+                        <h2 className="font-semibold text-gray-900">
+                            Schedule for{' '}
+                            <time dateTime={format(selectedDay, 'yyyy-MM-dd')}>
+                                {format(selectedDay, 'MMM dd, yyy')}
+                            </time>
+                        </h2>
+                        <ol className="mt-4 space-y-1 text-sm leading-6 text-gray-500">
+                            {selectedDayMeetings.length > 0 ? (
+                                selectedDayMeetings.map((event) => (
+                                    <Meeting event={event} key={event.id} />
+                                ))
+                            ) : (
+                                <p>No meetings for today.</p>
+                            )}
                         </ol>
-                    </div>
-                )}
+                    </section>
+                </div>
             </div>
         </>
     )
 }
+
+function Meeting({ event }) {
+    let startDateTime = parseISO(event.start_time)
+    let endDateTime = parseISO(event.end_time)
+
+    return (
+        <li className="flex items-center px-4 py-2 space-x-4 group rounded-xl focus-within:bg-gray-100 hover:bg-gray-100">
+            <img
+                src="/images/temp_event.jpg"/* {event.imageUrl} */
+                alt="Event Photo"
+                className="flex-none w-10 h-10 rounded-full"
+            />
+            <div className="flex-auto">
+                <p className="text-gray-900">{event.title}</p>
+                <p className="mt-0.5">
+                    <time dateTime={event.start_time}>
+                        {format(startDateTime, 'h:mm a')}
+                    </time>{' '}
+                    -{' '}
+                    <time dateTime={event.end_time}>
+                        {format(endDateTime, 'h:mm a')}
+                    </time>
+                </p>
+                <p className="text-gray-500">{event.location}</p>
+
+            </div>
+            <Menu
+                as="div"
+                className="relative opacity-0 focus-within:opacity-100 group-hover:opacity-100"
+            >
+                <div>
+                    <Menu.Button className="-m-2 flex items-center rounded-full p-1.5 text-gray-500 hover:text-gray-600">
+                        <span className="sr-only">Open options</span>
+                        <EllipsisVerticalIcon className="w-6 h-6" aria-hidden="true" />
+                    </Menu.Button>
+                </div>
+
+                <Transition
+                    as={Fragment}
+                    enter="transition ease-out duration-100"
+                    enterFrom="transform opacity-0 scale-95"
+                    enterTo="transform opacity-100 scale-100"
+                    leave="transition ease-in duration-75"
+                    leaveFrom="transform opacity-100 scale-100"
+                    leaveTo="transform opacity-0 scale-95"
+                >
+                    <Menu.Items className="absolute right-0 z-10 mt-2 origin-top-right bg-white rounded-md shadow-lg w-36 ring-1 ring-black ring-opacity-5 focus:outline-none">
+                        <div className="py-1">
+                            <Menu.Item>
+                                {({ active }) => (
+                                    <a
+                                        href="#"
+                                        className={classNames(
+                                            active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                                            'block px-4 py-2 text-sm'
+                                        )}
+                                    >
+                                        Edit
+                                    </a>
+                                )}
+                            </Menu.Item>
+                            <Menu.Item>
+                                {({ active }) => (
+                                    <a
+                                        href="#"
+                                        className={classNames(
+                                            active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                                            'block px-4 py-2 text-sm'
+                                        )}
+                                    >
+                                        Cancel
+                                    </a>
+                                )}
+                            </Menu.Item>
+                        </div>
+                    </Menu.Items>
+                </Transition>
+            </Menu>
+        </li>
+    )
+}
+
+let colStartClasses = [
+    '',
+    'col-start-2',
+    'col-start-3',
+    'col-start-4',
+    'col-start-5',
+    'col-start-6',
+    'col-start-7',
+]

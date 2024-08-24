@@ -72,10 +72,6 @@ export default function EditEventForm({ event, onClose }: EditEventFormProps) {
                             </div>
                         </div>
                     </div>
-                    <div className="flex flex-col w-full">
-                        <label htmlFor="status" className="text-sm font-medium text-gray-700">Status</label>
-                        <input type="text" id="status" name="status" value={formData.status} onChange={handleChange} className="mt-1 p-2 border border-gray-300 rounded-md w-full" required />
-                    </div>
                 </div>
 
                 <div className="flex flex-col">

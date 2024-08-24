@@ -3,8 +3,10 @@
 import { useState, useEffect } from 'react';
 import { createClient } from '@/utils/supabase/client';
 import Link from 'next/link';
-import { MagnifyingGlassIcon, ExclamationTriangleIcon, CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
+import { MagnifyingGlassIcon, ExclamationTriangleIcon, ArrowLongLeftIcon, ArrowLongRightIcon } from '@heroicons/react/20/solid';
 import EventListbox from './EventListbox';
+
+
 
 async function fetchEventss(searchQuery = '', category = '') {
     console.log("fecthing events");
@@ -103,7 +105,7 @@ export default function SearchEvents({ label = 'Upcoming Events' }) {
                 </button>
             </div>
 
-            <div className="-mx-4 -my-2 sm:-mx-6 lg:-ml-28 overflow-x-auto">
+            <div className="-mx-4 -my-2 sm:-mx-6 lg:-ml-28 overflow-x-auto xl:overflow-visible mt-3">
                 <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                     {events.length === 0 ? (
                         <div className="mt-20 border-l-4 border-purple-900 bg-purple-50 p-4">
@@ -179,6 +181,69 @@ export default function SearchEvents({ label = 'Upcoming Events' }) {
                         </table>
                     )}
                 </div>
+                <nav className="w-1/2 flex items-center justify-between mx-auto py-5 border-t border-gray-200 px-4 sm:px-0">
+                    <div className="-mt-px flex w-0 flex-1">
+                        <a
+                            href="#"
+                            className="inline-flex items-center border-t-2 border-transparent pr-1 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                        >
+                            <ArrowLongLeftIcon aria-hidden="true" className="mr-3 h-5 w-5 text-gray-400" />
+                            Previous
+                        </a>
+                    </div>
+                    <div className="hidden md:-mt-px md:flex">
+                        <a
+                            href="#"
+                            className="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                        >
+                            1
+                        </a>
+                        {/* Current: "border-indigo-500 text-indigo-600", Default: "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" */}
+                        <a
+                            href="#"
+                            aria-current="page"
+                            className="inline-flex items-center border-t-2 border-indigo-500 px-4 pt-4 text-sm font-medium text-indigo-600"
+                        >
+                            2
+                        </a>
+                        <a
+                            href="#"
+                            className="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                        >
+                            3
+                        </a>
+                        <span className="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500">
+                            ...
+                        </span>
+                        <a
+                            href="#"
+                            className="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                        >
+                            8
+                        </a>
+                        <a
+                            href="#"
+                            className="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                        >
+                            9
+                        </a>
+                        <a
+                            href="#"
+                            className="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                        >
+                            10
+                        </a>
+                    </div>
+                    <div className="-mt-px flex w-0 flex-1 justify-end">
+                        <a
+                            href="#"
+                            className="inline-flex items-center border-t-2 border-transparent pl-1 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                        >
+                            Next
+                            <ArrowLongRightIcon aria-hidden="true" className="ml-3 h-5 w-5 text-gray-400" />
+                        </a>
+                    </div>
+                </nav>
             </div>
         </div>
     );

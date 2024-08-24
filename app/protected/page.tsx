@@ -28,12 +28,12 @@ export default async function AdminPanel() {
   return (
     <div className="flex-1 w-full flex flex-col gap-2 items-center">
       <div className="w-full">
-        <div className="py-6 font-bold text-white bg-purple-950 text-center">
+        <div className="py-6 font-bold text-white bg-purple-900 text-center">
           Hello, This is a protected page that you can only see as an authenticated user
         </div>
       </div>
       <div className="flex flex-col items-center justify-center py-1 border-b-2 border-dashed border-violet-800">
-        <h1 className="text-2xl md:text-4xl font-bold ">Welcome to, <span className="text-purple-950">Admin</span> Panel!</h1>
+        <h1 className="text-2xl md:text-4xl font-bold ">Welcome to, <span className="text-purple-800">Admin</span> Panel!</h1>
       </div>
       <div className="sm:flex lg:flex-row flex-col gap-1 w-full px-6">
         {/* Event Form Component */}
