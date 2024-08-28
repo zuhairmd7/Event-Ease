@@ -1,5 +1,5 @@
 'use client';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Footer from '@/components/Footer';
@@ -21,6 +21,33 @@ export default function Home() {
     useEffect(() => {
         AOS.init();
     }, []);
+
+    const [email, setEmail] = useState("");
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        try {
+            const response = await fetch('/api/subscribe', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email }),
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error('Error subscribing:', errorText);
+                return;
+            }
+
+            // Optionally, handle successful subscription
+            alert("Subscribed successfully!");
+            setEmail("");
+        } catch (error) {
+            console.error('Error subscribing:', error);
+        }
+    };
+
     return (
         <>
             <div className="bg-white max-h-screen">
@@ -174,7 +201,7 @@ export default function Home() {
                         <p className="mx-auto mt-2 max-w-xl text-center text-lg leading-8 text-gray-300">
                             Don’t miss out on any upcoming events or updates. write your email and be the first to know what’s happening.
                         </p>
-                        <form className="mx-auto mt-10 flex max-w-md gap-x-4">
+                        <form onSubmit={handleSubmit} className="mx-auto mt-10 flex max-w-md gap-x-4">
                             <label htmlFor="email-address" className="sr-only">
                                 Email address
                             </label>
@@ -185,6 +212,8 @@ export default function Home() {
                                 required
                                 placeholder="Enter your email"
                                 autoComplete="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                                 className="min-w-0 flex-auto rounded-md border-0 bg-white/5 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-white sm:text-sm sm:leading-6"
                             />
                             <button
@@ -216,7 +245,7 @@ export default function Home() {
                         </svg>
                     </div>
                 </div>
-            </div >
+            </div>
 
             <section className="bg-white py-24 sm:py-32">
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">

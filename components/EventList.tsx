@@ -134,7 +134,7 @@ export default function EventList({ events }: EventListProps) {
                         </div>
                     ) : (
 
-                        <table className="min-w-full divide-y divide-gray-300">
+                        <table className="min-w-auto divide-y divide-gray-300">
                             <thead>
                                 <tr>
                                     <th scope="col" className="py-3.5 pl-4 pr-3 text-start text-sm font-semibold text-gray-900 sm:pl-0">Name</th>
@@ -145,7 +145,6 @@ export default function EventList({ events }: EventListProps) {
                                     <th scope="col" className="px-3 py-3.5 text-start text-sm font-semibold text-gray-900">End Time</th>
                                     <th scope="col" className="px-3 py-3.5 text-start text-sm font-semibold text-gray-900">Category</th>
                                     <th scope="col" className="pr-3 py-3.5 text-start text-sm font-semibold text-gray-900">Capacity</th>
-                                    <th scope="col" className="px-3 py-3.5 text-start text-sm font-semibold text-gray-900">edit</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-200">
@@ -157,12 +156,12 @@ export default function EventList({ events }: EventListProps) {
                                             </a>
                                         </td>
                                         <td className="px-3 py-4 text-sm text-gray-500 break-words">{event.description}</td>
-                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{event.price}</td>
+                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-center text-gray-500">{event.price}</td>
                                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{event.location}</td>
                                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{new Date(event.start_time).toLocaleDateString()}</td>
                                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{new Date(event.end_time).toLocaleDateString()}</td>
                                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{event.category}</td>
-                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{event.capacity}</td>
+                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-center text-gray-500">{event.capacity}</td>
                                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                             <Menu as="div" className="relative inline-block text-left">
                                                 <div>

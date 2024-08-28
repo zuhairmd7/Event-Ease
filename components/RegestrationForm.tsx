@@ -26,20 +26,21 @@ const RegistrationForm = ({ eventId, eventName, eventDate, eventLocation }) => {
         if (error) {
             setError(error.message);
         } else {
+
             setIsDialogOpen(false);
             setName('');
             setEmail('');
             alert('Registration successful!');
+
             await fetch('/api/email', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ name, email, eventName, eventDate, eventLocation }),
+                body: JSON.stringify({ name, email, eventTitle: eventName, eventDate, eventLocation }),
             });
         }
     };
-
     return (
         <>
             <button
@@ -99,5 +100,4 @@ const RegistrationForm = ({ eventId, eventName, eventDate, eventLocation }) => {
         </>
     );
 };
-
 export default RegistrationForm;

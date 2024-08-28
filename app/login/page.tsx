@@ -3,13 +3,9 @@ import { headers } from "next/headers";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { SubmitButton } from "./submit-button";
-import EventLogo from "../../components/EventLogo";
+import LoginLayout from "@/app/login/login-layout";
 
-export default function Login({
-  searchParams,
-}: {
-  searchParams: { message: string };
-}) {
+export default function Login({ searchParams, }: { searchParams: { message: string }; }) {
   const signIn = async (formData: FormData) => {
     "use server";
 
@@ -26,7 +22,7 @@ export default function Login({
       return redirect("/login?message=Could not authenticate user");
     }
 
-    return redirect("/protected");
+    return redirect("/");
   };
 
   const signUp = async (formData: FormData) => {
@@ -46,6 +42,7 @@ export default function Login({
     });
 
     if (error) {
+      console.error('Sign-up error:', error.message);
       return redirect("/login?message=Could not authenticate user!");
     }
 
@@ -53,11 +50,70 @@ export default function Login({
   };
 
   return (
-    <div className=" flex flex-col w-full px-8 sm:max-w-md justify-center mx-auto mt-32 gap-2">
-      <Link
-        href="/"
-        className="absolute left-8 top-20 py-2 px-4 rounded-md no-underline bg-orange-600 text-white font-bold text-foreground  hover:bg-orange-700 flex items-center group text-sm"
-      >
+    <LoginLayout>
+      <div className="flex flex-row w-full h-screen">
+
+        <div className="w-1/2 h-full">
+          <img src="/images/Login_Cover.jpg" alt="login" className="w-full h-full object-cover rounded-r-3xl" />
+        </div>
+
+        <div className="flex flex-col w-1/2 px-8 sm:max-w-md justify-center mx-auto mt-8 gap-2">
+          <form className="flex flex-col w-full justify-center gap-2 text-foreground">
+            <div className="items-center flex justify-center mb-1">
+              <Link href="/">
+                <span className="bg-orange-600 text-white px-1 font-bold text-3xl">EVENT</span>
+                <span className="text-black font-bold ps-1 text-4xl">Now</span>
+              </Link>
+            </div>
+            <h1 className="mb-4 text-black font-bold text-center">Log in to manage your events and track registrations effortlessly</h1>
+            <label className="text-md text-black font-bold" htmlFor="email">
+              Email
+            </label>
+            <input
+              className="rounded-md px-4 py-2 bg-inherit text-black border border-gray-500 mb-6"
+              name="email"
+              placeholder="you@example.com"
+              required
+            />
+            <label className="text-md text-black font-bold" htmlFor="password">
+              Password
+            </label>
+            <input
+              className="rounded-md px-4 py-2 text-black bg-inherit border mb-6"
+              type="password"
+              name="password"
+              placeholder="••••••••"
+              required
+            />
+            <SubmitButton
+              formAction={signIn}
+              className="bg-orange-600 rounded-md px-4 py-2 text-foreground mb-2 text-white font-bold"
+              pendingText="Signing In...">
+              Sign In
+            </SubmitButton>
+            <div className="flex flex-row justify-center">
+              Don't have an account ?{" "}
+              <SubmitButton
+                formAction={signUp}
+                className="text-orange-600 pl-1"
+                pendingText="Signing Up...">
+                Sign Up
+              </SubmitButton>
+            </div>
+            {searchParams?.message && (
+              <p className="mt-4 p-4 bg-orange-600 text-black text-center">
+                {searchParams.message}
+              </p>
+            )}
+          </form>
+        </div>
+      </div>
+    </LoginLayout>
+  );
+}
+
+
+{/* <Link href="/" className="absolute left-8 top-20 py-2 px-3 rounded-md no-underline bg-orange-600 text-white font-bold text-foreground  hover:bg-orange-700 flex items-center group text-sm ">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -72,53 +128,5 @@ export default function Login({
         >
           <polyline points="15 18 9 12 15 6" />
         </svg>{" "}
-        Back
-      </Link>
-
-      <form className="flex flex-col w-full justify-center gap-2 text-foreground">
-        <div className="items-center flex justify-center mb-1">
-          <span className="bg-orange-600 text-white px-1 font-bold text-3xl">EVENT</span>
-          <span className="text-black font-bold ps-1 text-4xl">Now</span>
-        </div>
-        <h1 className="mb-4 text-black font-bold text-center">Log in to manage your events and track registrations effortlessly</h1>
-        <label className="text-md text-black font-bold" htmlFor="email">
-          Email
-        </label>
-        <input
-          className="rounded-md px-4 py-2 bg-inherit text-black border border-gray-500 mb-6"
-          name="email"
-          placeholder="you@example.com"
-          required
-        />
-        <label className="text-md text-black font-bold" htmlFor="password">
-          Password
-        </label>
-        <input
-          className="rounded-md px-4 py-2 text-black bg-inherit border mb-6"
-          type="password"
-          name="password"
-          placeholder="••••••••"
-          required
-        />
-        <SubmitButton
-          formAction={signIn}
-          className="bg-orange-600 rounded-md px-4 py-2 text-foreground mb-2 text-white font-bold"
-          pendingText="Signing In...">
-          Sign In
-        </SubmitButton>
-        <SubmitButton
-          formAction={signUp}
-          className="border border-orange-600 rounded-md px-4 py-2 text-orange-600 mb-2"
-          pendingText="Signing Up..."
-        >
-          Sign Up
-        </SubmitButton>
-        {searchParams?.message && (
-          <p className="mt-4 p-4 bg-orange-600 text-white text-center">
-            {searchParams.message}
-          </p>
-        )}
-      </form>
-    </div>
-  );
-}
+        <span className="transition-transform group-hover:-translate-x-1">Back</span>
+      </Link> */}

@@ -1,31 +1,31 @@
-import { Resend } from "resend";
-import { NextResponse } from "next/server";
-import { EmailTemplate } from "../../../emailTemplate/welcome";
-
-const resend = new Resend(process.env.RESEND_API_KEY);
+import nodemailer from 'nodemailer';
+import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
-    const { name, email, eventName, eventDate, eventLocation } = await request.json();
+    const { name, email, eventTitle } = await request.json();
+
+    // Create a transporter object using Gmail SMTP
+    const transporter = nodemailer.createTransport({
+        host: process.env.SMTP_HOST,
+        port: Number(process.env.SMTP_PORT),
+        secure: false, // true for 465, false for other ports
+        auth: {
+            user: process.env.SMTP_USER,
+            pass: process.env.SMTP_PASS,
+        },
+    });
+
+    const mailOptions = {
+        from: `"Zuhair Madmouj" <${process.env.SMTP_USER}>`,
+        to: email,
+        subject: `Registration Confirmed: ${eventTitle}`,
+        html: `<p>Hi ${name},</p><p>You have successfully registered for the event: <strong>${eventTitle}</strong>.</p><p>We look forward to seeing you there!</p>`,
+    };
 
     try {
-        const { data, error } = await resend.emails.send({
-            from: 'Acme <onboarding@resend.dev>',
-            to: [email],
-            subject: 'Event Registration Confirmation',
-            react: EmailTemplate({
-                firstName: name,
-                /* eventName,
-                eventDate: new Date(eventDate),
-                eventLocation, */
-            }),
-        });
-
-        if (error) {
-            return NextResponse.json({ error }, { status: 500 });
-        }
-
-        return NextResponse.json(data);
+        const info = await transporter.sendMail(mailOptions);
+        return NextResponse.json({ message: 'Email sent', info });
     } catch (error) {
-        return NextResponse.json({ error }, { status: 500 });
+        return NextResponse.json({ error: 'Failed to send email', details: error }, { status: 500 });
     }
 }

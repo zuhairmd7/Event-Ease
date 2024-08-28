@@ -34,3 +34,15 @@
   display: inline-block;
   height: 2.5em;
 }
+
+.text-with-bg {
+  background-image: url('/public/images/Login_Cover.jpg');
+  background-size: cover;
+  background-position: center;
+  color: white;
+  /* Adjust text color for better visibility */
+  padding: 20px;
+  /* Adjust padding as needed */
+  display: inline-block;
+  /* Ensure the background only covers the text */
+}
