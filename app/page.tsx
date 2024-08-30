@@ -68,7 +68,7 @@ export default function Home() {
                                 <div className="mt-10  flex items-center gap-x-6">
                                     <Link
                                         href="/protected"
-                                        className="rounded-md bg-indigo-800 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                                        className="rounded-md bg-[#d6a456] px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-[#a77628] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                                         Get started
                                     </Link>
                                     <Link href="#" className="text-sm font-semibold leading-6 text-gray-900">
@@ -150,7 +150,7 @@ export default function Home() {
             <div className="bg-white py-24 sm:py-32">
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
                     <h2 className="text-center text-lg font-semibold leading-8 text-gray-900">
-                        Trusted by the world’s most innovative teams
+                        Trusted By - Our Partners
                     </h2>
                     <div data-aos="flip-down" className="mx-auto mt-10 grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-5">
                         <img
@@ -162,10 +162,9 @@ export default function Home() {
                         />
                         <img
                             alt="Reform"
-                            src="https://tailwindui.com/img/logos/158x48/reform-logo-gray-900.svg"
-                            width={158}
-                            height={48}
-                            className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
+                            src="/images/LoveandKindness.png"
+
+                            className="col-span-2 size-36 w-full object-contain lg:col-span-1"
                         />
                         <img
                             alt="Tuple"
@@ -218,8 +217,7 @@ export default function Home() {
                             />
                             <button
                                 type="submit"
-                                className="flex-none rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-                            >
+                                className="flex-none rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
                                 Notify me
                             </button>
                         </form>

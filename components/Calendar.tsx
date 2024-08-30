@@ -82,7 +82,7 @@ export default function Example() {
             <div className="md:grid md:grid-cols-2 md:divide-x md:divide-gray-200">
                 <div className="md:pr-14">
                     <div className="flex items-center">
-                        <h2 className="flex-auto font-semibold text-gray-900">
+                        <h2 className="flex-auto text-lg font-semibold text-[#d6a354]">
                             {format(firstDayCurrentMonth, 'MMMM yyyy')}
                         </h2>
                         <button
@@ -134,7 +134,7 @@ export default function Example() {
                                         !isToday(day) &&
                                         !isSameMonth(day, firstDayCurrentMonth) &&
                                         'text-gray-400',
-                                        isEqual(day, selectedDay) && isToday(day) && 'bg-indigo-600',
+                                        isEqual(day, selectedDay) && isToday(day) && 'bg-[#e98a7f]',
                                         isEqual(day, selectedDay) &&
                                         !isToday(day) &&
                                         'bg-gray-900',
@@ -153,7 +153,7 @@ export default function Example() {
                                     {events.some((event) =>
                                         isSameDay(parseISO(event.start_time), day)
                                     ) && (
-                                            <div className="w-1 h-1 rounded-full bg-orange-500"></div>
+                                            <div className="w-1 h-1 rounded-full bg-[#d6a354]"></div>
                                         )}
                                 </div>
                             </div>
@@ -188,11 +188,11 @@ function Meeting({ event }) {
 
     return (
         <li className="flex items-center px-4 py-2 space-x-4 group rounded-xl focus-within:bg-gray-100 hover:bg-gray-100">
-            <img
-                src="/images/temp_event.jpg"/* {event.imageUrl} */
-                alt="Event Photo"
-                className="flex-none w-10 h-10 rounded-full"
-            />
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#e98a7f" className="size-6">
+                <path fillRule="evenodd" d="m11.54 22.351.07.04.028.016a.76.76 0 0 0 .723 0l.028-.015.071-.041a16.975 16.975 0 0 0 1.144-.742 19.58 19.58 0 0 0 2.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 0 0-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 0 0 2.682 2.282 16.975 16.975 0 0 0 1.145.742ZM12 13.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" clipRule="evenodd" />
+            </svg>
+
+            {/* alt="Event Photo" className="flex-none w-10 h-10 rounded-full" */}
             <div className="flex-auto">
                 <p className="text-gray-900">{event.title}</p>
                 <p className="mt-0.5">
@@ -207,7 +207,7 @@ function Meeting({ event }) {
                 <p className="text-gray-500">{event.location}</p>
 
             </div>
-            <Menu
+            {/* <Menu
                 as="div"
                 className="relative opacity-0 focus-within:opacity-100 group-hover:opacity-100"
             >
@@ -258,7 +258,7 @@ function Meeting({ event }) {
                         </div>
                     </Menu.Items>
                 </Transition>
-            </Menu>
+            </Menu> */}
         </li>
     )
 }

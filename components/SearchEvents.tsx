@@ -62,7 +62,7 @@ export default function SearchEvents({ label = 'Upcoming Events' }) {
             <div className="px-4 sm:px-6 lg:px-8 w-full sm:w-2/3 mx-auto mt-28">
                 <div className="sm:flex sm:items-center">
                     <div className="sm:flex-auto">
-                        <h1 className="font-bold text-2xl leading-6 text-purple-950">{label}</h1>
+                        <h1 className="font-bold text-2xl leading-6 text-[#d6a354]">{label}</h1>
                         <p className="mt-2 text-sm text-gray-700">
                             A list of all the events in your account including their title, status and price.
                         </p>
@@ -86,7 +86,7 @@ export default function SearchEvents({ label = 'Upcoming Events' }) {
                                 placeholder="Search"
                                 value={searchQuery}
                                 onChange={handleSearchChange}
-                                className="block w-full rounded-md border-0 bg-white py-1.5 pl-10 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-purple-900 sm:text-sm sm:leading-6"
+                                className="block w-full rounded-md border-0 bg-white py-1.5 pl-10 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#d6a354] sm:text-sm sm:leading-6"
                             />
                         </div>
                     </div>
@@ -100,7 +100,7 @@ export default function SearchEvents({ label = 'Upcoming Events' }) {
                         </div>
                     </form>
                     {/* LISTBOX END HERE */}
-                    <button onClick={handleClearCategory} className="ml-2 px-1 py-2 text-indigo-600 text-sm ">
+                    <button onClick={handleClearCategory} className="ml-2 px-1 py-2 text-[#e2ae61] text-sm ">
                         Clear Filters
                     </button>
                 </div>
@@ -160,32 +160,30 @@ export default function SearchEvents({ label = 'Upcoming Events' }) {
                                     {events.map((event) => (
                                         <tr key={event.id} className="relative hover:bg-gray-50">
                                             <td className="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-900">
-                                                <Link href={`/event-details/${event.id}`} className="text-indigo-600 hover:text-indigo-900">
+                                                <Link href={`/event-details/${event.id}`} className="text-[#e2ae61] hover:text-[#c28c3c]">
                                                     {event.title}
                                                 </Link>
                                             </td>
                                             <td className="break-words px-3 py-4 text-sm text-start text-gray-500">{event.description}</td>
-                                            <td className="whitespace-nowrap px-3 py-4 text-center text-sm text-gray-500">{event.price}</td>
+                                            <td className="whitespace-nowrap px-3 py-4 text-start text-sm text-gray-500">{event.price}</td>
                                             <td className="whitespace-nowrap px-3 py-4 text-start text-sm text-gray-500">{event.location}</td>
                                             <td className="whitespace-nowrap px-3 py-4 text-start text-sm text-gray-500">{new Date(event.start_time).toLocaleDateString()}</td>
                                             <td className="whitespace-nowrap px-3 py-4 text-start text-sm text-gray-500">{new Date(event.end_time).toLocaleDateString()}</td>
                                             <td className="whitespace-nowrap px-3 py-4 text-start text-sm text-gray-500">{event.category}</td>
-                                            <td className="whitespace-nowrap px-3 py-4 text-center text-sm text-gray-500">{event.capacity}</td>
+                                            <td className="whitespace-nowrap px-3 py-4 text-start text-sm text-gray-500">{event.capacity}</td>
                                         </tr>
                                     ))}
                                 </tbody>
                             </table>
                         )}
                     </div>
-
                 </div>
             </div>
             <nav className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1/2 pb-3 flex items-center justify-center mx-auto border-t border-gray-200 px-4 sm:px-0">
                 <div className="-mt-px flex w-0 flex-1">
                     <a
                         href="#"
-                        className="inline-flex items-center border-t-2 border-transparent pr-1 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
-                    >
+                        className="inline-flex items-center border-t-2 border-transparent pr-1 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
                         <ArrowLongLeftIcon aria-hidden="true" className="mr-3 h-5 w-5 text-gray-400" />
                         Previous
                     </a>

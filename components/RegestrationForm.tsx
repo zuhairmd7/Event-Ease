@@ -45,7 +45,7 @@ const RegistrationForm = ({ eventId, eventName, eventDate, eventLocation }) => {
         <>
             <button
                 onClick={() => setIsDialogOpen(true)}
-                className="mt-16 font-bold bg-purple-700 text-white p-2 rounded hover:bg-purple-900">
+                className="mt-16 font-bold bg-[#d6a456] text-white p-2 rounded hover:bg-purple-900">
                 Register for this Event
             </button>
             <Dialog isOpen={isDialogOpen} closeModal={() => setIsDialogOpen(false)}>

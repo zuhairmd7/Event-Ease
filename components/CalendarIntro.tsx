@@ -18,7 +18,7 @@ const CalendarIntro: React.FC = () => {
                 typeSpeed={50}
                 backSpeed={30}
                 loop
-                className="text-2xl font-medium text-purple-600 mt-4"
+                className="text-2xl font-medium text-[#d6a354] mt-4"
             />
 
         </div>

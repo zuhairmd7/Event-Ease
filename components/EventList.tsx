@@ -151,7 +151,7 @@ export default function EventList({ events }: EventListProps) {
                                 {eventList.map((event) => (
                                     <tr key={event.id} className="relative hover:bg-gray-50">
                                         <td className="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-900">
-                                            <a href={`/event-details/${event.id}`} className="text-indigo-600 hover:text-indigo-900">
+                                            <a href={`/event-details/${event.id}`} className="text-[#e2a242e1] hover:text-[#d6a354]">
                                                 {event.title}
                                             </a>
                                         </td>
@@ -165,7 +165,7 @@ export default function EventList({ events }: EventListProps) {
                                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                             <Menu as="div" className="relative inline-block text-left">
                                                 <div>
-                                                    <MenuButton className="flex items-center rounded-full  text-gray-800 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-purple-800 focus:ring-offset-2 focus:ring-offset-gray-100">
+                                                    <MenuButton className="flex items-center rounded-full  text-gray-800 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-[#d6a354] focus:ring-offset-2 focus:ring-offset-gray-100">
                                                         <span className="sr-only">Open options</span>
                                                         <EllipsisVerticalIcon aria-hidden="true" className="h-5 w-5" />
                                                     </MenuButton>

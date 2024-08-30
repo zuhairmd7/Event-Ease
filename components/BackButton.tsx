@@ -14,7 +14,7 @@ const BackButton = ({ label = 'Back', className = '' }: BackButtonProps) => {
     return (
         <button
             onClick={() => router.back()}
-            className={`bg-purple-900 py-1 px-2 flex items-center text-center justify-center ml-3 my-3 rounded-md text-white font-bold transform transition-transform duration-300 hover:scale-105 hover:bg-purple-700 ${className}`}>
+            className={`bg-[#d6a456] py-1 px-2 flex items-center text-center justify-center ml-3 my-3 rounded-md text-white font-bold transform transition-transform duration-300 hover:scale-105 hover:bg-[#a37427] ${className}`}>
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 320 512"

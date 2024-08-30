@@ -59,8 +59,8 @@ export default function EventForm() {
 
     return (
 
-        <div className="w-full max-w-md lg:-mt-32 mx-auto bg-white p-8 rounded-lg shadow-lg border-2 border-dashed border-purple-800">
-            <h2 className="text-2xl font-bold mb-4">Create New Event</h2>
+        <div className="w-full max-w-md lg:-mt-32 mx-auto bg-white p-8 rounded-lg shadow-lg border-2 border-dashed border-[#d6a354]">
+            <h2 className="text-2xl text-[#e98a7f] font-bold mb-4">Create New Event</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="flex flex-col">
                     <label htmlFor="title" className="text-sm font-medium text-gray-700">Title</label>
@@ -131,7 +131,7 @@ export default function EventForm() {
                                     checked={formData.is_online}
                                     onChange={(e) => setFormData({ ...formData, is_online: e.target.checked })}
                                     aria-describedby="online-description"
-                                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                                    className="h-4 w-4 rounded border-gray-300 text-[#e98a7f] focus:ring-[#e98a7f]"
                                 />
                             </div>
                             <div className="ml-3 text-sm leading-6">
@@ -146,7 +146,7 @@ export default function EventForm() {
                     </div>
                 </fieldset>
                 <div className="w-full border border-gray-200 rounded-md opacity-55"></div>
-                <button type="submit" className="bg-purple-900 text-white font-bold flex justify-center text-center items-center px-7 py-2 rounded-md hover:bg-purple-700 mx-auto">
+                <button type="submit" className="bg-[#e98a7f] hover:bg-[#dc8277]      text-white font-bold flex justify-center text-center items-center px-7 py-2 rounded-md mx-auto">
                     Create
                 </button>
             </form>
