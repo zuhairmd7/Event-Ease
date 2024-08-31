@@ -108,15 +108,15 @@ export default function SearchEvents({ label = 'Upcoming Events' }) {
                 <div className="-mx-4 -my-2 sm:-mx-6 lg:-ml-28 overflow-x-auto xl:overflow-visible mt-3">
                     <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                         {events.length === 0 ? (
-                            <div className="mt-20 border-l-4 border-purple-900 bg-purple-50 p-4">
+                            <div className="mt-20 border-l-4 border-[#dc8277] bg-[#fff5f4] p-4">
                                 <div className="flex">
                                     <div className="flex-shrink-0">
                                         <ExclamationTriangleIcon aria-hidden="true" className="h-5 w-5 text-yellow-300" />
                                     </div>
                                     <div className="ml-3">
-                                        <p className="text-sm text-purple-700">
+                                        <p className="text-sm text-black">
                                             There's no events existed.{' '}
-                                            <a href="/protected" className="font-medium text-purple-700 underline hover:text-purple-600">
+                                            <a href="/protected" className="font-medium text-black underline hover:text-yellow-300">
                                                 Please add/create new event to show here.
                                             </a>
                                         </p>

@@ -4,6 +4,7 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Footer from '@/components/Footer';
 import Link from 'next/link';
+import { Caveat } from '@next/font/google';
 
 /* const links = [
     { name: 'Open roles', href: '#' },
@@ -11,6 +12,10 @@ import Link from 'next/link';
     { name: 'Our values', href: '#' },
     { name: 'Meet our leadership', href: '#' },
 ] */
+const caveat = Caveat({
+    weight: ['400', '700'], // Choose the appropriate weights
+    subsets: ['latin'],
+});
 const stats = [
     { name: 'Online availability', value: 'Available' },
     { name: 'Active Organizers', value: '300+' },
@@ -88,6 +93,25 @@ export default function Home() {
                     <div className="absolute inset-x-0 top-0 -z-10 h-24 bg-gradient-to-b from-white sm:h-32" />
                 </div>
             </div>
+
+            <div className="relative">
+                <svg className="w-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                    <path fill="#dc8277" fill-opacity="1" d="M0,160L60,154.7C120,149,240,139,360,133.3C480,128,600,128,720,154.7C840,181,960,235,1080,250.7C1200,267,1320,245,1380,234.7L1440,224L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"></path>
+                </svg>
+
+                <div className="flex flex-row items-center justify-center h-screen -mt-48 space-x-16">
+                    <img data-aos="fade-right" src="/images/1672075074734.jpg" alt="LK Wellness Services Team"
+                        className="max-w-lg rounded-lg shadow-lg transform transition-transform duration-500 hover:scale-105 hover:shadow-2xl" />
+
+                    <div className="text-center text-gray-800" data-aos="zoom-out">
+                        <h1 className={`${caveat.className} text-[3.5rem] text-[#82b5b9] font-bold`}>Making Life Easier for the LK Wellness Team</h1>
+                        <p className="mt-4 max-w-lg mx-auto text-lg">Our event management project streamlines scheduling, event tracking, and communication, allowing the LK Wellness Team to focus on what they do best—caring for their clients.</p>
+                    </div>
+                </div>
+            </div>
+
+
+
 
             <div className="relative isolate overflow-hidden bg-gray-900 py-24 sm:py-32">
                 <img

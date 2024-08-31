@@ -54,14 +54,14 @@ export default function Login({ searchParams, }: { searchParams: { message: stri
       <div className="flex flex-row w-full h-screen">
 
         <div className="w-1/2 h-full">
-          <img src="/images/Login_Cover.jpg" alt="login" className="w-full h-full object-cover rounded-r-3xl" />
+          <img src="/images/lk_wllness2.jpg" alt="login" className="w-full h-full object-cover rounded-r-3xl" />
         </div>
 
         <div className="flex flex-col w-1/2 px-8 sm:max-w-md justify-center mx-auto mt-8 gap-2">
           <form className="flex flex-col w-full justify-center gap-2 text-foreground">
             <div className="items-center flex justify-center mb-1">
               <Link href="/">
-                <span className="bg-orange-600 text-white px-1 font-bold text-3xl">EVENT</span>
+                <span className="bg-[#d8a75c] text-white px-1 font-bold text-3xl">EVENT</span>
                 <span className="text-black font-bold ps-1 text-4xl">Now</span>
               </Link>
             </div>
@@ -87,7 +87,7 @@ export default function Login({ searchParams, }: { searchParams: { message: stri
             />
             <SubmitButton
               formAction={signIn}
-              className="bg-orange-600 rounded-md px-4 py-2 text-foreground mb-2 text-white font-bold"
+              className="bg-[#d8a75c] rounded-md px-4 py-2 text-foreground mb-2 text-white font-bold"
               pendingText="Signing In...">
               Sign In
             </SubmitButton>
@@ -95,13 +95,13 @@ export default function Login({ searchParams, }: { searchParams: { message: stri
               Don't have an account ?{" "}
               <SubmitButton
                 formAction={signUp}
-                className="text-orange-600 pl-1"
+                className="text-[#d8a75c] pl-1"
                 pendingText="Signing Up...">
                 Sign Up
               </SubmitButton>
             </div>
             {searchParams?.message && (
-              <p className="mt-4 p-4 bg-orange-600 text-black text-center">
+              <p className="mt-4 p-4 bg-[#d8a75c] text-black text-center">
                 {searchParams.message}
               </p>
             )}
