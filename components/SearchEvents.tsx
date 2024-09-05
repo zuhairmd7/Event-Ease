@@ -199,7 +199,7 @@ export default function SearchEvents({ label = 'Upcoming Events' }) {
                     <a
                         href="#"
                         aria-current="page"
-                        className="inline-flex items-center border-t-2 border-indigo-500 px-4 pt-4 text-sm font-medium text-indigo-600"
+                        className="inline-flex items-center border-t-2 border-[#dc8277] px-4 pt-4 text-sm font-medium text-[#dc8277]"
                     >
                         2
                     </a>
