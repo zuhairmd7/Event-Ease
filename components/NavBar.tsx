@@ -87,31 +87,31 @@ export async function NavBar() {
                     <DisclosureButton
                         as="a"
                         href="/"
-                        className="block border-l-4 border-purple-950 bg-indigo-50 py-2 pl-3 pr-4 text-base font-medium text-purple-950">
+                        className="block border-l-4 border-[#dc8277] bg-[#fff7f6] py-2 pl-3 pr-4 text-base font-medium text-[#dc8277]">
                         Home
                     </DisclosureButton>
                     <DisclosureButton
                         as="a"
                         href="/event-details"
-                        className="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700">
+                        className="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-black hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700">
                         Event Details
                     </DisclosureButton>
                     <DisclosureButton
                         as="a"
                         href="/registration"
-                        className="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700">
+                        className="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-black hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700">
                         Regestration
                     </DisclosureButton>
                     <DisclosureButton
                         as="a"
                         href="/protected"
-                        className="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700">
+                        className="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-black hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700">
                         Admin Panel
                     </DisclosureButton>
                     <DisclosureButton
                         as="a"
                         href="/calendar"
-                        className="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700">
+                        className="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-black hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700">
                         Calendar
                     </DisclosureButton>
                 </div>

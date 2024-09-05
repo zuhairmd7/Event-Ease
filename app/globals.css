@@ -35,6 +35,11 @@
   height: 2.5em;
 }
 
+.footer-bg {
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23f3ac3a" fill-opacity="1" d="M0,256L48,245.3C96,235,192,213,288,186.7C384,160,480,128,576,122.7C672,117,768,139,864,165.3C960,192,1056,224,1152,229.3C1248,235,1344,213,1392,202.7L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat center center;
+  background-size: cover;
+}
+
 .text-with-bg {
   background-image: url('/public/images/Login_Cover.jpg');
   background-size: cover;

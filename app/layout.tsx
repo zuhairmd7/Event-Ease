@@ -1,7 +1,10 @@
+//app\layout.tsx
+
 import "./globals.css";
 import { ReactNode } from 'react';
-import NavBar from "@/components/NavBar";
 import AuthButton from "@/components/AuthButton";
+import ConditionalNavbar from "@/components/ConditionalNavbar";
+import NavBar from "@/components/NavBar";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -18,7 +21,6 @@ type LayoutProps = {
 };
 
 export default function RootLayout({ children }: LayoutProps) {
-
   return (
 
     <html lang="en">
@@ -26,12 +28,10 @@ export default function RootLayout({ children }: LayoutProps) {
         <title>EventEase</title>
       </head>
       <body>
-        <div>
-          <NavBar />
-          <main>
-            {children}
-          </main>
-        </div>
+        <NavBar />
+        <main>
+          {children}
+        </main>
       </body>
     </html>
 

@@ -66,8 +66,7 @@ export default async function AuthButton() {
   ) : (
     <Link
       href="/login" className="block hover:bg-gray-100 w-full px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100"
-    /* className="ms-3 py-1 px-2 text-sm rounded-md bg-purple-950 text-white cursor-pointer font-semibold no-underline flex" */
-    >
+    /* className="ms-3 py-1 px-2 text-sm rounded-md bg-purple-950 text-white cursor-pointer font-semibold no-underline flex" */>
       Login
     </Link>
   );
